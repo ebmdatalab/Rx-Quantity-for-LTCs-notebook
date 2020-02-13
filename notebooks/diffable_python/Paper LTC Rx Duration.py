@@ -129,7 +129,7 @@ fig.update_layout(
     title="Number of Items for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
 fig.show()
 
-items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/10E6
+items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/1E6
 print(f'There are {items_28d:,.1f}M one-month scripts for our basket of common medicines. There will be a substantial number of prescriptions that need amending.')
 # -
 
