@@ -110,18 +110,28 @@ fig.update_layout(
     title="Number of Tabets/Capsules for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
 fig.show()
 
+# get value for percentage dispensed in each of 1/2/3 months prescriptions: 
+percentage = {}
+for d in lst:
+    percentage[d] = dfp.loc[dfp["quantity_per_item"]==d,'proportion_of_qty'].item()
+
+print(f"Tablets/capsules for common LTC medicines are most commonly being dispensed on 28 day prescriptions ({percentage[28]:.1f}%)",
+      f"with approximately {percentage[56]:.1f}% being dispensed on two-monthly scripts.",
+      f"Only {percentage[84]:.1f}% of these common medicines are being supplied on three-monthly prescriptions." )
+
 # -
 
-# Most tablets/capsules for common LTC medicines are being dispensed on 28 day prescriptions (59%) with approximately 33% being dispensed on two monthly scripts. Only 4.5% of these common medicines are being supplied on three onthly prescriptions. 
-#
-# The Bristol paper assertion that most prescribing is 28 days is correct based on our basket of common LTC medicines. They recommend three month presctiptions as being more cost effective. Now lets look at script volume to see what the workload implications might be for our basket of common medicines.
+# The Bristol paper assertion that most prescribing is 28 days is correct based on our basket of common LTC medicines. They recommend three-month presctiptions as being more cost effective. Now let's look at script volume to see what the workload implications might be for our basket of common medicines.
 
+# +
 fig = px.bar(dfp, x='quantity_per_item', y='items')
 fig.update_layout(
     title="Number of Items for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
 fig.show()
+
 items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/10E6
 print(f'There are {items_28d:,.1f}M one-month scripts for our basket of common medicines. There will be a substantial number of prescriptions that need amending.')
+# -
 
 # ## CCG Variation
 
@@ -151,7 +161,7 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
     plt.figure(figsize=(20, 7))
     maps.ccg_map(
         ccg_map[ccg_map['quantity_per_item'] == quantity_per_item], 
-        title= ("Proportion of Tabets/Capsules supplied on", quantity_per_item, "days \n prescriptions for Commonly Prescribed Medicines"),
+        title= (f"Proportion of Tabets/Capsules supplied on {quantity_per_item}-day \n prescriptions for Commonly Prescribed Medicines"),
         column='proportion_of_basket', 
         separate_london=False,
         plot_options={'vmax': 100}
@@ -204,15 +214,13 @@ df_excess[["items","actual_cost"]].sum()
 # +
 # here we create csv files for each CCG to investigate further if they wish - these are now available on GitHub
 for i, g in df_excess.groupby('pct'):
-    if "GITHUB_WORKSPACE" in os.environ:
+    if "GITHUB_WORKSPACE" not in os.environ:
         g.to_csv(os.path.join('..','data','{}.csv').format(i.split('/')[0]), index=False)
 # -
 
 
 #  code review improvements - what I would like to tweak
-# - Cartogram Map titles, they do not look right but it fails when I try tweaking. How do you combine the changing column title and a nonchangeable string
-# - csv files for each ccg. I'd like to put them in a seperate folder.
-# - currently has 12 months to July 19, we should update with latest if going anywhere.
+# - currently has 12 months to July 19, we should update with latest
 
 # + collapsed=true jupyter={"outputs_hidden": true}
 
