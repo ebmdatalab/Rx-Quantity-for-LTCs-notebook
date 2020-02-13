@@ -76,8 +76,6 @@ df_rx_repeat.describe()
 
 # There is a maximum of 8400 on a single...... That is 23 years worth of tablets, lets investigate further below.
 
-#
-
 # +
 
 dfp = df_rx_repeat.copy()
@@ -131,6 +129,7 @@ df_ccg = df_ltc.groupby(['pct','quantity_per_item'])['items'].sum().reset_index(
 df_ccg["total_quantity"] = df_ccg["quantity_per_item"]*df_ccg["items"] 
 df_ccg.tail(5)
 
+# +
 df_common_ccg = df_ccg.loc[(df_ccg["quantity_per_item"].isin(lst))]
 
 
@@ -202,9 +201,11 @@ df_excess.describe()
 
 df_excess[["items","actual_cost"]].sum()
 
+# +
 # here we create csv files for each CCG to investigate further if they wish - these are now available on GitHub
 for i, g in df_excess.groupby('pct'):
      g.to_csv(os.path.join('..','data','{}.csv').format(i.split('/')[0]), index=False)
+# -
 
 
 #  code review improvements - what I would like to tweak
