@@ -16,236 +16,658 @@
 #   widgets:
 #     application/vnd.jupyter.widget-state+json:
 #       state:
-#         005bcf2c11c9459a88d9d1f07bf3bfad:
+#         089ea883e97043bebae1760673972732:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: DropdownModel
+#           state:
+#             _options_labels:
+#             - 00C
+#             - 00D
+#             - 00J
+#             - 00K
+#             - 00L
+#             - 00M
+#             - 00N
+#             - 00P
+#             - 00Q
+#             - 00R
+#             - 00T
+#             - 00V
+#             - 00X
+#             - 00Y
+#             - 01A
+#             - 01C
+#             - 01D
+#             - 01E
+#             - 01F
+#             - 01G
+#             - 01H
+#             - 01J
+#             - 01K
+#             - 01R
+#             - 01T
+#             - 01V
+#             - 01W
+#             - 01X
+#             - 01Y
+#             - 02A
+#             - 02D
+#             - 02E
+#             - 02F
+#             - 02G
+#             - 02H
+#             - 02M
+#             - 02N
+#             - 02P
+#             - 02Q
+#             - 02R
+#             - 02T
+#             - 02W
+#             - 02X
+#             - 02Y
+#             - 03A
+#             - 03D
+#             - 03E
+#             - 03F
+#             - 03H
+#             - 03J
+#             - 03K
+#             - 03L
+#             - 03M
+#             - 03N
+#             - 03Q
+#             - 03R
+#             - 03T
+#             - 03V
+#             - 03W
+#             - 04C
+#             - 04D
+#             - 04E
+#             - 04F
+#             - 04G
+#             - 04H
+#             - 04K
+#             - 04L
+#             - 04M
+#             - 04N
+#             - 04Q
+#             - 04V
+#             - 04Y
+#             - 05A
+#             - 05C
+#             - 05D
+#             - 05F
+#             - 05G
+#             - 05H
+#             - 05J
+#             - 05L
+#             - 05N
+#             - 05Q
+#             - 05R
+#             - 05T
+#             - 05V
+#             - 05W
+#             - 05X
+#             - 05Y
+#             - 06A
+#             - 06D
+#             - 06F
+#             - 06H
+#             - 06K
+#             - 06L
+#             - 06M
+#             - 06N
+#             - 06P
+#             - 06Q
+#             - 06T
+#             - 06V
+#             - 06W
+#             - 06Y
+#             - 07G
+#             - 07H
+#             - 07J
+#             - 07K
+#             - 07L
+#             - 07M
+#             - 07N
+#             - 07P
+#             - 07Q
+#             - 07R
+#             - 07T
+#             - 07V
+#             - 07W
+#             - 07X
+#             - 07Y
+#             - 08A
+#             - 08C
+#             - 08D
+#             - 08E
+#             - 08F
+#             - 08G
+#             - 08H
+#             - 08J
+#             - 08K
+#             - 08L
+#             - 08M
+#             - 08N
+#             - 08P
+#             - 08Q
+#             - 08R
+#             - 08T
+#             - 08V
+#             - 08W
+#             - 08X
+#             - 08Y
+#             - 09A
+#             - 09C
+#             - 09D
+#             - 09E
+#             - 09F
+#             - 09G
+#             - 09H
+#             - 09J
+#             - 09L
+#             - 09N
+#             - 09P
+#             - 09W
+#             - 09X
+#             - 09Y
+#             - 10A
+#             - 10C
+#             - 10D
+#             - 10E
+#             - 10J
+#             - 10K
+#             - 10L
+#             - 10Q
+#             - 10R
+#             - 10V
+#             - 10X
+#             - 11A
+#             - 11E
+#             - 11J
+#             - 11M
+#             - 11N
+#             - 11X
+#             - 12D
+#             - 12F
+#             - 13T
+#             - 14L
+#             - 14Y
+#             - 15A
+#             - 15C
+#             - 15D
+#             - 15E
+#             - 15F
+#             - 15M
+#             - 15N
+#             - 99A
+#             - 99C
+#             - 99D
+#             - 99E
+#             - 99F
+#             - 99G
+#             - 99H
+#             - 99J
+#             - 99K
+#             - 99M
+#             - 99N
+#             - All
+#             description: 'CCG:'
+#             index: 123
+#             layout: IPY_MODEL_9b60817ee94e4e6f83eb335d663ed87c
+#             style: IPY_MODEL_559b4f0f02394607a0dbc68d88697146
+#         0b30a29446d149bf94e23ace70f600ff:
 #           model_module: '@jupyter-widgets/controls'
 #           model_module_version: 1.5.0
 #           model_name: SliderStyleModel
 #           state:
 #             description_width: initial
-#         0ec369c21f32451cb6059283afa2d230:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: FloatSliderModel
-#           state:
-#             description: 'Proportion amenable:'
-#             layout: IPY_MODEL_763dc26cb2e74666ac60747bcc0e8862
-#             max: 0.95
-#             min: 0.2
-#             step: 0.05
-#             style: IPY_MODEL_6508ca45b96240058d64fd04d99ebd89
-#             value: 0.9
-#         153cfe91fa924087ad77b843791dd065:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: FloatSliderModel
-#           state:
-#             description: 'Proportion GP:'
-#             layout: IPY_MODEL_4027a2c8c18d4324b7d46bd8055c22d2
-#             max: 0.9
-#             min: 0.1
-#             step: 0.1
-#             style: IPY_MODEL_c6bb31b36876421e8d938afa13a5ad9d
-#             value: 0.5
-#         18fc2bf1e556464e8a2a658ab6c76a4a:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         1b31ad89bbbd4efa8d6a0e1d37af2833:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         205d139df1514105a281521617763c86:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         2ad0ed8e39db4675a9cbeef8c7157c2b:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: FloatSliderModel
-#           state:
-#             description: 'Time per presc (min):'
-#             layout: IPY_MODEL_398f9e5f957944caad6bf95260e538f2
-#             max: 2
-#             min: 0.1
-#             step: 0.1
-#             style: IPY_MODEL_1b31ad89bbbd4efa8d6a0e1d37af2833
-#             value: 0.5
-#         3486e74f918842ac8cd34ea17a14527f:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: FloatSliderModel
-#           state:
-#             description: 'e-RD proportion:'
-#             layout: IPY_MODEL_205d139df1514105a281521617763c86
-#             max: 1
-#             step: 0.1
-#             style: IPY_MODEL_b0daca8a66774d09acbcda4d1a019c1d
-#             value: 0.5
-#         385ca3297d8c44dba01b11515b02697f:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         398f9e5f957944caad6bf95260e538f2:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         4027a2c8c18d4324b7d46bd8055c22d2:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         43dce17f8cf5478a99d469d70faf47a9:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         4a7e227431994e2b85898a78694794ec:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         52ad332ed8394da1b462d54015cd3dc6:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         5af5b7c43dcf41b792dac2345a2d771b:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: VBoxModel
-#           state:
-#             children:
-#             - IPY_MODEL_e1fcb4da1d034ba6a49077128ddeb3a7
-#             - IPY_MODEL_0ec369c21f32451cb6059283afa2d230
-#             - IPY_MODEL_153cfe91fa924087ad77b843791dd065
-#             - IPY_MODEL_2ad0ed8e39db4675a9cbeef8c7157c2b
-#             - IPY_MODEL_3486e74f918842ac8cd34ea17a14527f
-#             - IPY_MODEL_a135c4368efc4590a172129413fd6c55
-#             - IPY_MODEL_cc97a8ab93c14d1bae10a139a8be7295
-#             - IPY_MODEL_9fadc6dbb972438e8679fc2e86b1ed3e
-#             - IPY_MODEL_b82c3aa729164555b58b3fb6a60a5b88
-#             layout: IPY_MODEL_43dce17f8cf5478a99d469d70faf47a9
-#         6508ca45b96240058d64fd04d99ebd89:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         71e838317a184dca981378623503b56d:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         763dc26cb2e74666ac60747bcc0e8862:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         7b3c4c95af0d41e59e4833450b8d0af0:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         7bb87231feeb4d4497aebc37dcef5a1c:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         9fadc6dbb972438e8679fc2e86b1ed3e:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: IntSliderModel
-#           state:
-#             description: 'Time to collect (min):'
-#             layout: IPY_MODEL_7bb87231feeb4d4497aebc37dcef5a1c
-#             max: 30
-#             style: IPY_MODEL_385ca3297d8c44dba01b11515b02697f
-#             value: 10
-#         a135c4368efc4590a172129413fd6c55:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: FloatSliderModel
-#           state:
-#             description: "Price per item (\xA3):"
-#             layout: IPY_MODEL_52ad332ed8394da1b462d54015cd3dc6
-#             max: 2
-#             min: 0.5
-#             step: 0.1
-#             style: IPY_MODEL_71e838317a184dca981378623503b56d
-#             value: 0.8
-#         b0daca8a66774d09acbcda4d1a019c1d:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         b6663df16218411a8d1990a5a8519fbb:
-#           model_module: '@jupyter-widgets/base'
-#           model_module_version: 1.2.0
-#           model_name: LayoutModel
-#           state: {}
-#         b82c3aa729164555b58b3fb6a60a5b88:
+#         1429337cafa048dd9265f10747086de7:
 #           model_module: '@jupyter-widgets/output'
 #           model_module_version: 1.0.0
 #           model_name: OutputModel
 #           state:
-#             layout: IPY_MODEL_b6663df16218411a8d1990a5a8519fbb
+#             layout: IPY_MODEL_579a57de9f5649b2b61bf2a75a1fc0a1
 #             outputs:
 #             - name: stdout
 #               output_type: stream
 #               text: "Total prescriptions = 16,212,361 \n\nDispensing fees =  \xA3\
 #                 6,128,272 \nStaff cost =  \xA32,285,943 \nWasted meds =  \xA31,325,860\
 #                 \ \nPatient cost =  \xA311,889,065 \n \nOverall impact: =  \xA315,500,867\n"
-#         c6bb31b36876421e8d938afa13a5ad9d:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: SliderStyleModel
-#           state:
-#             description_width: initial
-#         cc97a8ab93c14d1bae10a139a8be7295:
-#           model_module: '@jupyter-widgets/controls'
-#           model_module_version: 1.5.0
-#           model_name: IntSliderModel
-#           state:
-#             description: "Cost of public time (\xA3):"
-#             layout: IPY_MODEL_7b3c4c95af0d41e59e4833450b8d0af0
-#             max: 15
-#             min: 5
-#             style: IPY_MODEL_18fc2bf1e556464e8a2a658ab6c76a4a
-#             value: 11
-#         d4ae90a42b44460da3d1c2fdcc5985fc:
+#         16114efd37bc467bac2afbb722fe8e7c:
 #           model_module: '@jupyter-widgets/base'
 #           model_module_version: 1.2.0
 #           model_name: LayoutModel
 #           state: {}
-#         e00b7959f6fc454caac2a0b99d8d03b1:
+#         20d4e666cbb94873be18303cb272f769:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         23fa1073ffda422ca5a9f9b7780f46d8:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         2683f8ea1d9f49149a7cba9dae2f56f6:
 #           model_module: '@jupyter-widgets/controls'
 #           model_module_version: 1.5.0
-#           model_name: HBoxModel
+#           model_name: FloatSliderModel
 #           state:
-#             children:
-#             - IPY_MODEL_5af5b7c43dcf41b792dac2345a2d771b
-#             layout: IPY_MODEL_d4ae90a42b44460da3d1c2fdcc5985fc
-#         e1fcb4da1d034ba6a49077128ddeb3a7:
+#             description: 'Time per presc (min):'
+#             layout: IPY_MODEL_74974dffb09b4b2a938548293895879f
+#             max: 2
+#             min: 0.1
+#             step: 0.1
+#             style: IPY_MODEL_4c405b5eeede48a5aabea1815f7bde12
+#             value: 0.5
+#         28fc4881230541dd82fd29f08146470e:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'e-RD proportion:'
+#             layout: IPY_MODEL_23fa1073ffda422ca5a9f9b7780f46d8
+#             max: 1
+#             step: 0.1
+#             style: IPY_MODEL_e7249d10b563404aaca5c3660da1f008
+#             value: 0.5
+#         29806774732543f4996711bc8b7f9a13:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'Time per presc (min):'
+#             layout: IPY_MODEL_6772f235c0f44d92828bd381da24b86f
+#             max: 2
+#             min: 0.1
+#             step: 0.1
+#             style: IPY_MODEL_8e196ac9de77442fa9a70c133b76c8f1
+#             value: 0.5
+#         2e063288a1cc4bbba4b19cb901a87b94:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         4142de5e35e148b181dbcec672edbcfe:
 #           model_module: '@jupyter-widgets/controls'
 #           model_module_version: 1.5.0
 #           model_name: IntSliderModel
 #           state:
 #             description: 'Months supply:'
-#             layout: IPY_MODEL_4a7e227431994e2b85898a78694794ec
+#             layout: IPY_MODEL_cac5563991004ce8af0cd5f830975127
+#             max: 4
+#             min: 1
+#             style: IPY_MODEL_bdd879dd72374a74b8d3c0b61414e8eb
+#             value: 3
+#         464f0a80bfa04a26b66e95460d63f351:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         4c405b5eeede48a5aabea1815f7bde12:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         4c8d3b247a1343db99352c67f6ab5b37:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'Proportion GP:'
+#             layout: IPY_MODEL_20d4e666cbb94873be18303cb272f769
+#             max: 0.9
+#             min: 0.1
+#             step: 0.1
+#             style: IPY_MODEL_e9e749d1df6745ee80903cdebe20f0de
+#             value: 0.5
+#         559b4f0f02394607a0dbc68d88697146:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: DescriptionStyleModel
+#           state:
+#             description_width: ''
+#         579a57de9f5649b2b61bf2a75a1fc0a1:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         6350c1e4353d40029903d413fb467ee3:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'Proportion GP:'
+#             layout: IPY_MODEL_d6410dcc4bba45478f48f2d58e997c27
+#             max: 0.9
+#             min: 0.1
+#             step: 0.1
+#             style: IPY_MODEL_f44f36c4df1744d2a539dde910e3ec54
+#             value: 0.5
+#         63e7ac14f3d64de2a4578ba6089cf44e:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: HBoxModel
+#           state:
+#             children:
+#             - IPY_MODEL_f04a2ccd6d714d68a9a909b047b525ee
+#             layout: IPY_MODEL_e419a883ef8d402cbcebf78e7143262a
+#         65248358e48d4e06a75c3a6b24f91719:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         6772f235c0f44d92828bd381da24b86f:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         688a3cd17a244186aae96cf3d4925079:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: IntSliderModel
+#           state:
+#             description: 'Time to collect (min):'
+#             layout: IPY_MODEL_16114efd37bc467bac2afbb722fe8e7c
+#             max: 30
+#             style: IPY_MODEL_b01aad5f51a746558f7c4a79676b4ae8
+#             value: 10
+#         703a6c9c27fb42568bb84d63ff961243:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'e-RD proportion:'
+#             layout: IPY_MODEL_65248358e48d4e06a75c3a6b24f91719
+#             max: 1
+#             step: 0.1
+#             style: IPY_MODEL_e08eb505c19d4c249ba1189bed48d72d
+#             value: 0.5
+#         74974dffb09b4b2a938548293895879f:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         74bf8356b19e456eb0cf2041101bc4a8:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: IntSliderModel
+#           state:
+#             description: "Cost of public time (\xA3):"
+#             layout: IPY_MODEL_82f0c68cdf8442f2a0d1444ce827af78
+#             max: 15
+#             min: 5
+#             style: IPY_MODEL_d7ebc0eee4b24899b939cf866f2b37ad
+#             value: 11
+#         784c04cab34549de921d5271b55f98f5:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         7d79ea1967e64f13a943a3d215d8b6e1:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: IntSliderModel
+#           state:
+#             description: 'Months supply:'
+#             layout: IPY_MODEL_8ed97c9f2c8e4b45a8e947d455c74a35
 #             max: 4
 #             min: 2
-#             style: IPY_MODEL_005bcf2c11c9459a88d9d1f07bf3bfad
+#             style: IPY_MODEL_0b30a29446d149bf94e23ace70f600ff
 #             value: 3
+#         82f0c68cdf8442f2a0d1444ce827af78:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         8e196ac9de77442fa9a70c133b76c8f1:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         8ed97c9f2c8e4b45a8e947d455c74a35:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         92d653cda86a4cbe9a12bfe774eee114:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'Proportion amenable:'
+#             layout: IPY_MODEL_ca6ee7c99c8e4499a9cc7aaaf726ba5f
+#             max: 0.95
+#             min: 0.2
+#             step: 0.05
+#             style: IPY_MODEL_a699ab985b2b40a5aaed2c696dceded7
+#             value: 0.9
+#         9ad146fea9cc40ed99bcccd58bcc556d:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         9b60817ee94e4e6f83eb335d663ed87c:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         a699ab985b2b40a5aaed2c696dceded7:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         aad3ec2643b4457baaa063546b3b3df1:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         ac6b620e318d43cdacf1922aa0d1af2e:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         b01aad5f51a746558f7c4a79676b4ae8:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         bb61b7ec786148d7bd87e2b17e941725:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: "Price per item (\xA3):"
+#             layout: IPY_MODEL_2e063288a1cc4bbba4b19cb901a87b94
+#             max: 2
+#             min: 0.5
+#             step: 0.1
+#             style: IPY_MODEL_ded7eef2fefb44a9901fcdcf007353e6
+#             value: 0.8
+#         bc73ad9645374c1eb046ea3346bce87a:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         bdd879dd72374a74b8d3c0b61414e8eb:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         bea52f0756994415988752fffecdf4b2:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         c441ac658bcd4a70b854c78d35ec8c59:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: HBoxModel
+#           state:
+#             children:
+#             - IPY_MODEL_f153843a5f6d4fa39d7318fc8b9b05fc
+#             layout: IPY_MODEL_464f0a80bfa04a26b66e95460d63f351
+#         c6fdaa0e03544147833ac45315f0b2c2:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         ca6ee7c99c8e4499a9cc7aaaf726ba5f:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         cac5563991004ce8af0cd5f830975127:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         d6410dcc4bba45478f48f2d58e997c27:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         d7ebc0eee4b24899b939cf866f2b37ad:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         ded7eef2fefb44a9901fcdcf007353e6:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         e08eb505c19d4c249ba1189bed48d72d:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         e419a883ef8d402cbcebf78e7143262a:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         e7249d10b563404aaca5c3660da1f008:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         e9e749d1df6745ee80903cdebe20f0de:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         f04a2ccd6d714d68a9a909b047b525ee:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: VBoxModel
+#           state:
+#             children:
+#             - IPY_MODEL_4142de5e35e148b181dbcec672edbcfe
+#             - IPY_MODEL_92d653cda86a4cbe9a12bfe774eee114
+#             - IPY_MODEL_6350c1e4353d40029903d413fb467ee3
+#             - IPY_MODEL_29806774732543f4996711bc8b7f9a13
+#             - IPY_MODEL_703a6c9c27fb42568bb84d63ff961243
+#             - IPY_MODEL_74bf8356b19e456eb0cf2041101bc4a8
+#             - IPY_MODEL_f99a2a49a9bc45e3ac004c00cc770d3b
+#             - IPY_MODEL_089ea883e97043bebae1760673972732
+#             - IPY_MODEL_f410854f26754a86b5929c792f4a59a9
+#             layout: IPY_MODEL_aad3ec2643b4457baaa063546b3b3df1
+#         f153843a5f6d4fa39d7318fc8b9b05fc:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: VBoxModel
+#           state:
+#             children:
+#             - IPY_MODEL_7d79ea1967e64f13a943a3d215d8b6e1
+#             - IPY_MODEL_fc631556413f496b8d7d5aeac78ce8b3
+#             - IPY_MODEL_4c8d3b247a1343db99352c67f6ab5b37
+#             - IPY_MODEL_2683f8ea1d9f49149a7cba9dae2f56f6
+#             - IPY_MODEL_28fc4881230541dd82fd29f08146470e
+#             - IPY_MODEL_bb61b7ec786148d7bd87e2b17e941725
+#             - IPY_MODEL_f4856bd76d3c44a58493b2f44c78d800
+#             - IPY_MODEL_688a3cd17a244186aae96cf3d4925079
+#             - IPY_MODEL_1429337cafa048dd9265f10747086de7
+#             layout: IPY_MODEL_bea52f0756994415988752fffecdf4b2
+#         f410854f26754a86b5929c792f4a59a9:
+#           model_module: '@jupyter-widgets/output'
+#           model_module_version: 1.0.0
+#           model_name: OutputModel
+#           state:
+#             layout: IPY_MODEL_9ad146fea9cc40ed99bcccd58bcc556d
+#             outputs:
+#             - name: stdout
+#               output_type: stream
+#               text: "Total 28-day prescriptions = 106,436 \nPercent 1 month (of all\
+#                 \ 1+2+3 month prescriptions) = 40% \nMean price per item = \xA31.00\
+#                 \ \n\nDispensing fees =  \xA340,233 \nStaff cost =  \xA315,007 \n\
+#                 Wasted meds =  \xA310,923 \nPatient cost =  \xA378,053 \n \nOverall\
+#                 \ impact: =  \xA3103,983\n"
+#         f44f36c4df1744d2a539dde910e3ec54:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         f4856bd76d3c44a58493b2f44c78d800:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: IntSliderModel
+#           state:
+#             description: "Cost of public time (\xA3):"
+#             layout: IPY_MODEL_f5ed39cfc5b845df9d76695570e0d8db
+#             max: 15
+#             min: 5
+#             style: IPY_MODEL_c6fdaa0e03544147833ac45315f0b2c2
+#             value: 11
+#         f5ed39cfc5b845df9d76695570e0d8db:
+#           model_module: '@jupyter-widgets/base'
+#           model_module_version: 1.2.0
+#           model_name: LayoutModel
+#           state: {}
+#         f66157ad640a4b50a71c04bf22095e63:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: SliderStyleModel
+#           state:
+#             description_width: initial
+#         f99a2a49a9bc45e3ac004c00cc770d3b:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: IntSliderModel
+#           state:
+#             description: 'Time to collect (min):'
+#             layout: IPY_MODEL_ac6b620e318d43cdacf1922aa0d1af2e
+#             max: 30
+#             style: IPY_MODEL_bc73ad9645374c1eb046ea3346bce87a
+#             value: 10
+#         fc631556413f496b8d7d5aeac78ce8b3:
+#           model_module: '@jupyter-widgets/controls'
+#           model_module_version: 1.5.0
+#           model_name: FloatSliderModel
+#           state:
+#             description: 'Proportion amenable:'
+#             layout: IPY_MODEL_784c04cab34549de921d5271b55f98f5
+#             max: 0.95
+#             min: 0.2
+#             step: 0.05
+#             style: IPY_MODEL_f66157ad640a4b50a71c04bf22095e63
+#             value: 0.9
 #       version_major: 2
 #       version_minor: 0
 # ---
@@ -483,9 +905,16 @@ dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percen
 staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
 waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
 patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
-    
+# -
+
+
+# ## Output with widgets to adjust variables
 
 # +
+# ensure tests pass despite conflict with widget output:
+# NBVAL_IGNORE_OUTPUT 
+
+
 import ipywidgets as widgets
 from IPython.display import display
 from ipywidgets import Layout
@@ -563,7 +992,148 @@ widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_
 
 
 # +
-# calculate actual cost per prescription
+### extract 28-day prescribing data for modelling
+import os
+from ebmdatalab import bq
+import pandas as pd
+
+sql = '''
+SELECT
+  pct,
+  SUM(IF(quantity_per_item=28,items,0)) AS items_28d,
+  SUM(items) AS total_items,
+  SUM(IF(quantity_per_item=28,net_cost,0)) AS net_cost_28d
+
+FROM
+ ebmdatalab.hscic.raw_prescribing_normalised AS presc
+INNER JOIN  hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
+
+WHERE
+quantity_per_item IN (28,56,84)
+AND month BETWEEN '2018-08-01' AND '2019-07-01'
+AND 
+(bnf_code LIKE "0205051R0%" OR  ##ramipril
+bnf_code LIKE "0212000B0%" OR ##atrovastatin
+bnf_code LIKE "0212000Y0%" OR ##simvastatin
+bnf_code LIKE "0602010V0%" OR ##levothyroxine
+bnf_code LIKE "0206020A0%") ##amlodipine
+AND
+(bnf_name LIKE '%_Tab%' or bnf_name LIKE '%_Cap%') ##this restricts to tablets or capsules
+
+GROUP BY pct
+    '''
+
+df_ltc = bq.cached_read(sql, csv_path=os.path.join("..", "data", "ltc_qty_cost.csv"))
+
+df_ltc.head(10)
 
 # +
-# link to practice-level data to allow people to choose their practice
+data = df_ltc.set_index("pct").sort_index()
+# add a total row
+data = data.append(data.sum().rename("All")).reset_index()
+
+# calculate additional fields
+data["percent_28d"] = 100*data['items_28d']/data['total_items']
+data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
+
+data.tail()
+
+
+# +
+# ensure tests pass despite conflict with widget output:
+# NBVAL_IGNORE_OUTPUT 
+
+import ipywidgets as widgets
+from IPython.display import display
+from ipywidgets import Layout
+
+prescriptions = data.loc[data["pct"]=="All", "items_28d"].item() #16212361 # total 28-day prescriptions
+priceperitem = data.loc[data["pct"]=="All", "cost_per_item"].item() #1.041468 # total 28-day prescriptions
+
+#ccg_selector = widgets.Dropdown(options=data[["pct","items"]].to_numpy().tolist(), value=prescriptions, description='CCG:', disabled=False)
+ccg_selector = widgets.Dropdown(options=data["pct"], value="All", description='CCG:', disabled=False)
+
+# make widget titles fit by setting the style
+style = {'description_width': 'initial'}
+
+
+months_supply_slider = widgets.IntSlider(min=1, max=4, step=1, description='Months supply:', style=style, value=3)
+
+# proportion of prescriptions amenable to change
+percent_amenable_slider = widgets.FloatSlider(min=0.2, max=0.95, step=0.05, description='Proportion amenable:', style=style, value=0.9)
+
+# proportion of prescriptions approved by a GP
+prop_doc_slider = widgets.FloatSlider(min=0.1, max=0.9, step=0.1, description='Proportion GP:', style=style, value=0.5)
+
+# time taken to approve a repeat prescription (minutes)
+time_slider = widgets.FloatSlider(min=0.1, max=2, step=0.1, description='Time per presc (min):', style=style, value=0.5)
+
+# proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
+prop_erd_slider = widgets.FloatSlider(min=0, max=1, step=0.1, description='e-RD proportion:', style=style, value=0.5)
+
+# price per item
+#priceperitem_slider = widgets.FloatSlider(min=0.5, max=2, step=0.1, description='Price per item (£):', style=style, value=0.8)
+
+# cost of public time per minute
+cost_public_slider = widgets.IntSlider(min=5, max=15, step=1, description='Cost of public time (£):', style=style, value=11)
+
+# time to collect prescription (minutes)
+time_collect_slider = widgets.IntSlider(min=0, max=30, step=1, description='Time to collect (min):', style=style, value=10)
+
+    
+def f(ccg_selector, months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
+      cost_public_slider, time_collect_slider):
+    
+    ccg = ccg_selector
+    months_supply = months_supply_slider
+    percent_amenable = percent_amenable_slider
+    prop_doc = prop_doc_slider
+    t = time_slider
+    prop_erd = prop_erd_slider
+    #priceperitem = priceperitem_slider
+    cost_public = cost_public_slider
+    time_collect = time_collect_slider
+    
+    # items and cost per item, using ccg from dropdown
+    prescriptions = data.loc[data["pct"]==ccg, "items_28d"].item() 
+    percent_28d = data.loc[data["pct"]==ccg, "percent_28d"].item() 
+    priceperitem = data.loc[data["pct"]==ccg, "cost_per_item"].item()
+
+    
+    dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable)    
+    staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
+    waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
+    patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
+
+    print('Total 28-day prescriptions = {:,.0f} \n'
+          'Percent 1 month (of all 1+2+3 month prescriptions) = {:,.0f}% \n'
+          'Mean price per item = £{:,.2f} \n'
+          '\n'
+          'Dispensing fees =  £{:,.0f} \n'
+          'Staff cost =  £{:,.0f} \n'
+          'Wasted meds =  £{:,.0f} \n'
+          'Patient cost =  £{:,.0f} \n \n'
+          'Overall impact: =  £{:,.0f}'
+          .format(prescriptions, percent_28d, priceperitem, dispensing_fees, staff_cost, waste, patient_cost, staff_cost + waste + patient_cost),
+         )
+
+out = widgets.interactive_output(f, 
+                                 {'ccg_selector': ccg_selector,
+                                  'months_supply_slider': months_supply_slider, 
+                                  'percent_amenable_slider': percent_amenable_slider,
+                                  'prop_doc_slider': prop_doc_slider, 
+                                  'time_slider': time_slider, 
+                                  'prop_erd_slider': prop_erd_slider,
+                                  #'priceperitem_slider': priceperitem_slider, 
+                                  'cost_public_slider': cost_public_slider, 
+                                  'time_collect_slider': time_collect_slider})
+
+
+widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
+      cost_public_slider, time_collect_slider, ccg_selector, out])])
+
+
+# +
+# Display static output
+f("All", 3, 0.9, 0.5, 0.5, 0.5, 11, 10)
+
