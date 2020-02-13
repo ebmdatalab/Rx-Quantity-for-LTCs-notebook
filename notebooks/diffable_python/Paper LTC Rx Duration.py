@@ -204,7 +204,8 @@ df_excess[["items","actual_cost"]].sum()
 # +
 # here we create csv files for each CCG to investigate further if they wish - these are now available on GitHub
 for i, g in df_excess.groupby('pct'):
-     g.to_csv(os.path.join('..','data','{}.csv').format(i.split('/')[0]), index=False)
+    if "GITHUB_WORKSPACE" in os.environ:
+        g.to_csv(os.path.join('..','data','{}.csv').format(i.split('/')[0]), index=False)
 # -
 
 
