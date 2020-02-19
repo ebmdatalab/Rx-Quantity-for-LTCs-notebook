@@ -1,498 +1,526 @@
-year,chemical,total_items,total_tabs_caps
-2019,Etilefrine Hydrochloride,1,50
-2019,Etidronate Disodium,1,60
-2019,Cariprazine,1,28
-2019,Co-Danthramer (Dantron/Poloxamer 188),1,28
-2019,Sodium Picosulfate,1,50
-2019,Fenofibrate/Simvastatin,1,28
-2019,Aluminium & Magnesium & Act Simeticone,1,72
-2019,Tadalafil (Vasodilator Antihypertensive),1,28
-2019,Chenodeoxycholic Acid,2,180
-2019,Co-Triamterzide(Triamterene/Hydchloroth),2,56
-2019,Pindolol With Diuretic,2,49
-2019,Dydrogesterone,2,70
-2019,Bosentan,2,168
-2019,"Estradiol, Estriol and Estrone",2,56
-2019,Ticlopidine Hydrochloride,2,112
-2019,Etamsylate,2,232
-2019,Tripotassium Dicitratobismuthate,3,248
-2019,Colestipol Hydrochloride,3,600
-2019,Perindopril Tosilate/Indapamide,3,150
-2019,Alprazolam,3,240
-2019,Caffeine,3,716
-2019,Felbamate,3,352
-2019,Naltrexone/Bupropion,4,536
-2019,Ambrisentan,4,98
-2019,Isradipine,4,448
-2019,Nicotinic Acid Derivatives,4,608
-2019,Triamterene,4,198
-2019,Oxandrolone,4,240
-2019,Aspirin & Caffeine,4,236
-2019,Other Preparations For Biliary Disorders,5,352
-2019,Orphenadrine Hydrochloride,5,496
-2019,Acetyl-L-Carnitine,5,996
-2019,Fluphenazine Hydrochloride,6,266
-2019,Cortisone Acetate,6,529
-2019,Pergolide Mesilate,6,464
-2019,Amiloride Hydrochloride With Thiazides,6,168
-2019,Tolvaptan,6,124
-2019,Mesterolone,8,964
-2019,Indoramin,9,419
-2019,Quinidine Sulfate,9,1570
-2019,Aprepitant,10,72
-2019,Diamorphine Hydrochloride (Systemic),11,281
-2019,Chlorothiazide,12,1548
-2019,Thioridazine,12,632
-2019,Nefazodone Hydrochloride,13,1512
-2019,Pitolisant Hydrochloride,13,578
-2019,Co-Danthrusate (Dantron/Docusate Sod),13,798
-2019,Paracetamol & Caffeine,13,976
-2019,Paracetamol & Ibuprofen,13,1112
-2019,Co-Zidocapt (Hydchloroth/Captopril),14,882
-2019,Oxitriptan,14,2886
-2019,Oxprenolol Hydrochloride,15,861
-2019,Prasterone,15,969
-2019,Eluxadoline,16,1022
-2019,Timolol With Diuretic,18,826
-2019,Atropine Sulfate,19,1414
-2019,Other Stimulant Laxative Preps,19,766
-2019,Co-Codaprin (Codeine Phos/Aspirin),25,2410
-2019,Benzatropine Mesilate,26,557
-2019,Pentosan Polysulfate Sodium,28,2710
-2019,Prednisone,28,1375
-2019,Magnesium Carbonate,28,1556
-2019,Oestrogens Conjugated with Bazedoxifene,29,1526
-2019,Sultiame,30,2030
-2019,Cilazapril,34,994
-2019,Secobarbital Sodium,34,1527
-2019,Other Bisphosphonate & Other Preps,36,195
-2019,Perphenazine,37,1834
-2019,Diazoxide,38,3942
-2019,Nabilone,38,1838
-2019,Aspirin Combined Preparations,41,2814
-2019,Butobarbital,43,1960
-2019,Nimodipine,46,4592
-2019,Amobarbital Sodium,47,2751
-2019,Tolcapone,49,4062
-2019,Cyproterone Acetate,50,2224
-2019,Granisetron Hydrochloride,50,1655
-2019,Trimetazidine Hydrochloride,51,2924
-2019,Azilsartan Medoxomil,55,2492
-2019,Dipyridamole & Aspirin,56,3600
-2019,Meprobamate,66,4263
-2019,Alverine Citrate/Simeticone,66,5732
-2019,Phenindione,67,6244
-2019,Co-Flumactone (Hydroflumeth/Spironol),70,3024
-2019,Triamterene With Thiazides,71,2580
-2019,Stiripentol,71,6661
-2019,Phenoxybenzamine Hydrochloride,81,8396
-2019,Asenapine,85,3468
-2019,Pirenzepine,92,3638
-2019,Ergotamine Tartrate,93,3348
-2019,Co-Phenotrope (Diphenox HCl/Atrop Sulph),101,9463
-2019,Flunarizine Dihydroch,113,5615
-2019,Sildenafil(Vasodilator Antihypertensive),119,7886
-2019,Moxisylyte Hydorchloride,122,14420
-2019,Tryptophan,122,16108
-2019,Metyrapone,130,14523
-2019,Hydrochlorothiazide,133,5310
-2019,Doxylamine Succinate/Pyridoxine HCl,134,5072
-2019,Pentazocine Hydrochloride,135,15894
-2019,Nalmefene,140,2572
-2019,Tiagabine,147,13712
-2019,Acipimox,149,12542
-2019,Isocarboxazid,154,9455
-2019,Quinapril Hydrochloride with Diuretic,156,7484
-2019,Magnesium Trisilicate,163,14968
-2019,Paliperidone,169,4585
-2019,Isometheptene Mucate,172,5927
-2019,Dipipanone Hydrochloride,188,14277
-2019,Ulipristal Acet,194,7389
-2019,Clozapine,222,13188
-2019,Phenytoin,226,20787
-2019,Beclometasone Dipropionate (Systemic),237,6850
-2019,Lubiprostone,261,11540
-2019,Levothyroxine Sodium & Liothyronine,270,35629
-2019,Perindopril + Calcium Channel Blocker,285,11679
-2019,Pindolol,289,17915
-2019,Loperamide Hydrochloride & Simeticone,297,16539
-2019,Mianserin Hydrochloride,300,13451
-2019,Compound Alginates&Prop Indigestion Prep,305,19413
-2019,Ethinylestradiol,308,19281
-2019,Pimozide,308,11347
-2019,Mexiletine Hydrochloride,315,30380
-2019,Nicotine,317,40401
-2019,Clomifene Citrate,320,8648
-2019,Triamterene With Loop Diuretics,332,12001
-2019,Spironolactone With Loop Diuretics,332,11578
-2019,Xipamide,338,11414
-2019,Magnesium Oxide,346,38914
-2019,Estradiol and Estriol with Progestogen,386,37100
-2019,Quinagolide Hydrochloride,405,19385
-2019,Benperidol,411,19682
-2019,Deflazacort,412,33711
-2019,Cloral Betaine,420,15627
-2019,Paracetamol Combined Preparations,439,42445
-2019,Other Test For Helicobacter Pylori Preps,451,451
-2019,Misoprostol,453,29638
-2019,Methylprednisolone,456,15429
-2019,Danazol,465,22353
-2019,Aluminium Hydroxide,477,48337
-2019,Dimenhydrinate/Cinnarizine,495,40949
-2019,Alendronic Acid & Colecalciferol,500,2444
-2019,Calcium Carbonate,509,35725
-2019,Testosterone Undecanoate,535,37973
-2019,Tolfenamic Acid,539,8038
-2019,Vigabatrin,544,57389
-2019,Trifluoperazine,550,32852
-2019,Disopyramide Phosphate,550,35707
-2019,Piracetam,561,73600
-2019,Tranylcypromine Sulfate,562,38411
-2019,Amiloride HCl With Loop Diuretics,595,22446
-2019,Nateglinide,623,52717
-2019,Ramipril with Calcium Channel Blocker,677,30939
-2019,Hydromorphone Hydrochloride,690,48470
-2019,Olmesartan Medox/Amlodipine/Hydchloroth,693,22166
-2019,Imidapril Hydrochloride,724,25065
-2019,Safinamide,734,20054
-2019,Saxagliptin/Dapagliflozin,774,26782
-2019,Gemfibrozil,792,47214
-2019,Rufinamide,837,75351
-2019,Nizatidine,842,35486
-2019,Sucralfate,854,72705
-2019,Acebutolol Hydrochloride,877,48667
-2019,Famotidine,893,38231
-2019,Canagliflozin/Metformin,902,55068
-2019,Sodium Clodronate,911,57772
-2019,Simeticone,959,60864
-2019,Saxagliptin/Metformin,968,55906
-2019,Nadolol,1013,38383
-2019,Olsalazine Sodium,1056,132020
-2019,Chlortalidone,1103,32399
-2019,Bromocriptine,1114,62219
-2019,Disopyramide,1118,95249
-2019,Sodium Cromoglicate,1134,213176
-2019,Phenelzine Sulfate,1165,96678
-2019,Fosinopril Sodium,1189,53159
-2019,Atenolol With Calcium Channel Blocker,1197,59987
-2019,Quinapril Hydrochloride,1212,48390
-2019,Opicapone,1241,33913
-2019,Promazine Hydrochloride,1241,57330
-2019,Methylcellulose,1246,173219
-2019,Fentanyl,1259,64318
-2019,Clomethiazole,1275,56866
-2019,Rutosides,1308,120938
-2019,Lurasidone,1316,30098
-2019,Eletriptan,1331,14839
-2019,Enalapril Maleate with Diuretic,1365,57428
-2019,Torasemide,1383,49076
-2019,Naltrexone Hydrochloride,1394,30993
-2019,Pethidine Hydrochloride,1441,113453
-2019,Buprenorph HCl/Naloxone HCl,1455,31316
-2019,Nicardipine Hydrochloride,1471,115344
-2019,Eslicarbazepine Acetate,1496,59901
-2019,Olmesartan Medoxomil/Amlodipine,1503,55412
-2019,Glibenclamide,1516,105433
-2019,Co-Proxamol (Dextroprop HCl/Paracet),1520,213017
-2019,Riluzole,1521,85631
-2019,Moclobemide,1529,81050
-2019,Timolol,1561,68354
-2019,Brivaracetam,1571,86880
-2019,Guanfacine,1575,53299
-2019,Olmesartan Medoxomil/Hydrochlorothiazide,1590,59082
-2019,Glycopyrronium Bromide,1593,122828
-2019,Metolazone,1593,20646
-2019,Lormetazepam,1622,53612
-2019,Simvastatin & Ezetimibe,1627,59844
-2019,Propafenone Hydrochloride,1647,146253
-2019,Agomelatine,1702,66344
-2019,Aliskiren,1726,61536
-2019,Tolbutamide,1753,124809
-2019,Pentoxifylline,1754,110885
-2019,Cilostazol,1893,103812
-2019,Naloxegol,1926,47459
-2019,Minoxidil,1930,105587
-2019,Fluvoxamine Maleate,1934,95903
-2019,Dronedarone Hydrochloride,1985,122194
-2019,Acenocoumarol,2003,235783
-2019,Bupropion Hydrochloride,2029,115723
-2019,Valsartan/Amlodipine,2053,85374
-2019,Ethosuximide,2101,232090
-2019,Doxepin,2161,101080
-2019,Reboxetine,2175,116056
-2019,Ciprofibrate,2227,70602
-2019,Oestrogens Conjugated with Progestogen,2269,212556
-2019,Tetrabenazine,2475,135578
-2019,Glipizide,2715,212780
-2019,Selegiline Hydrochloride,2811,98772
-2019,Acarbose,2832,221468
-2019,Cimetidine,2846,165976
-2019,Disulfiram,2876,67386
-2019,Methadone Hydrochloride,2877,368218
-2019,Dapagliflozin/Metformin,2886,189068
-2019,Metformin Hydrochloride/Pioglitazone,2896,192527
-2019,Loprazolam Mesilate,2903,89409
-2019,Levomepromazine Maleate,2966,105734
-2019,Trimipramine Maleate,2968,156335
-2019,Perindopril Arginine,2970,119760
-2019,Betamethasone Sodium Phosphate,3008,243960
-2019,Celiprolol Hydrochloride,3045,122190
-2019,Promethazine Teoclate,3064,91615
-2019,Dicycloverine Hydrochloride,3172,264056
-2019,Linaclotide,3216,101892
-2019,Prazosin Hydrochloride,3244,286994
-2019,Empagliflozin/Metformin,3356,218586
-2019,Propylthiouracil,3379,288014
-2019,Telmisartan with Diuretic,3398,132061
-2019,Dexamfetamine Sulfate,3408,367405
-2019,Almotriptan,3723,35916
-2019,Perampanel,3935,110960
-2019,Oxycodone HCl/Naloxone HCl,3979,221326
-2019,Metformin Hydrochloride/Vildagliptin,4027,261369
-2019,Balsalazide Sodium,4076,790928
-2019,Entacapone,4130,363181
-2019,Perindopril Arginine with Diuretic,4205,188190
-2019,Raloxifene Hydrochloride,4393,152301
-2019,Glyceryl Trinitrate,4569,462800
-2019,Chlordiazepoxide Hydrochloride,4581,191540
-2019,Vildagliptin,4630,228867
-2019,Eprosartan,4835,174767
-2019,Frovatriptan,4837,47593
-2019,Budesonide,4844,347021
-2019,Repaglinide,4903,431697
-2019,Liothyronine Sodium,4925,259054
-2019,Linagliptin/Metformin,5001,304319
-2019,Pericyazine,5064,272940
-2019,Propantheline Bromide,5184,539131
-2019,Prasugrel,5503,166796
-2019,Alogliptin/Metformin,5518,341612
-2019,Valsartan with Diuretic,5822,225175
-2019,Meptazinol Hydrochloride,5851,478202
-2019,Captopril,6008,410165
-2019,Methyldopa,6085,465439
-2019,Hyoscine Hydrobromide,6255,281335
-2019,Isosorbide Dinitrate,6294,316549
-2019,Cabergoline,6489,80096
-2019,Trandolapril,6563,262606
-2019,Terazosin Hydrochloride,6637,248368
-2019,Buprenorphine,6663,473653
-2019,Zuclopenthixol Hydrochloride,6828,762800
-2019,Oxazepam,6861,307094
-2019,Modafinil,6939,450517
-2019,Analgesics with Anti-Emetics,7097,233209
-2019,Colesevelam Hydrochloride,7780,1077775
-2019,Estradiol Valerate,8105,667346
-2019,Oxcarbazepine,8397,619941
-2019,Progesterone,8444,515768
-2019,Vortioxetine,8627,203034
-2019,Medroxyprogesterone Acetate,8636,486430
-2019,Midodrine Hydrochloride,8758,683756
-2019,Prucalopride,9174,283088
-2019,Irbesartan with Diuretic,9317,370577
-2019,Trihexyphenidyl Hydrochloride,9447,567123
-2019,Fluvastatin Sodium,9653,331799
-2019,Atomoxetine Hydrochloride,9707,308602
-2019,Omega-3-Acid Ethyl Esters,9844,639245
-2019,Co-Amilozide (Amiloride HCl/Hydchloroth),9916,376735
-2019,Naftidrofuryl Oxalate,10560,936838
-2019,Lisinopril with Diuretic,10766,432992
-2019,Sulpiride,10804,519874
-2019,Acamprosate Calcium,10813,1071195
-2019,Labetalol Hydrochloride,10874,829676
-2019,Amantadine Hydrochloride,10920,541644
-2019,Lisdexamfetamine Dimesylate,10953,313444
-2019,Lacosamide,11958,656301
-2019,Naratriptan Hydrochloride,12367,126235
-2019,Desmopressin Acetate,12456,720816
-2019,Primidone,12887,848304
-2019,Tapentadol Hydrochloride,13078,804906
-2019,Sacubitril/Valsartan,13269,730197
-2019,Zonisamide,13330,899052
-2019,Co-Tenidone (Atenolol/Chlortalidone),13471,515700
-2019,Imipramine Hydrochloride,13507,1010210
-2019,Metformin Hydrochloride/Sitagliptin,13529,879771
-2019,Ibandronic Acid,13583,105573
-2019,Levodopa/Carbidopa/Entacapone,14018,1285585
-2019,Amiloride Hydrochloride,14348,514846
-2019,Flupentixol Hydrochloride,14350,638765
-2019,Galantamine,14570,320054
-2019,Hydralazine Hydrochloride,14739,828967
-2019,Buspirone Hydrochloride,15206,769652
-2019,Oestrogens Conjugated,15407,1238790
-2019,Phenobarbital,15437,970918
-2019,Lofepramine Hydrochloride,15728,893434
-2019,Tibolone,15932,910489
-2019,Rivastigmine,16106,684027
-2019,Rasagiline Mesilate,17250,483909
-2019,Dexamethasone,17348,691290
-2019,Losartan Potassium With Diuretic,18419,723321
-2019,Ondansetron Hydrochloride,19220,737241
-2019,Clomipramine Hydrochloride,20303,1324418
-2019,Saxagliptin,20378,604205
-2019,Alverine Citrate,21409,1787440
-2019,Chlorpromazine Hydrochloride,21539,943866
-2019,Haloperidol,22069,886279
-2019,Nefopam Hydrochloride,22868,2124039
-2019,Clobazam,23761,1022755
-2019,Dipyridamole,24642,1779766
-2019,Norethisterone,25058,1453239
-2019,Ursodeoxycholic Acid,25480,2583570
-2019,Zolmitriptan,25563,273548
-2019,Dutasteride,25649,805860
-2019,Varenicline Tartrate,26773,656531
-2019,Rizatriptan,26951,230827
-2019,Alginic Acid Compound Preparations,27609,2138690
-2019,Telmisartan,28257,1052591
-2019,Co-Amilofruse (Amiloride HCl/Frusemide),28562,948524
-2019,Orlistat,28970,2646926
-2019,Domperidone,29193,1745776
-2019,Rabeprazole Sodium,29736,1182697
-2019,Cinnarizine,30320,2529852
-2019,Estradiol,32652,2692011
-2019,Moxonidine,33374,1425914
-2019,Amisulpride,33622,1229280
-2019,Tranexamic Acid,35333,2298073
-2019,Ranolazine,35739,1846202
-2019,Clonidine Hydrochloride,35845,4061326
-2019,Valsartan,36115,1475155
-2019,Flecainide Acetate,36292,2631625
-2019,Hydrocortisone,36352,2410822
-2019,Bezafibrate,36535,1410123
-2019,Canagliflozin,37673,1260024
-2019,Nitrazepam,37921,1036104
-2019,Olmesartan Medoxomil,38104,1221087
-2019,Pramipexole,38982,2120144
-2019,Dabigatran Etexilate,40882,2447434
-2019,Sotalol Hydrochloride,41240,2658438
-2019,Ivabradine,41262,1900217
-2019,Amiodarone Hydrochloride,41661,1151816
-2019,Pizotifen Malate,44759,2116377
-2019,Fludrocortisone Acetate,44804,1441292
-2019,Peppermint Oil,44997,3787418
-2019,Metoprolol Tartrate,45454,2100104
-2019,Edoxaban,45602,1259313
-2019,Fenofibrate,46983,1587967
-2019,Carbimazole,48090,2239375
-2019,Ticagrelor,48307,2705769
-2019,Nebivolol,48760,1593108
-2019,Pancreatin,48941,12291083
-2019,Lacidipine,49013,1755301
-2019,Carvedilol,49045,2510752
-2019,Valproic Acid,50750,2314905
-2019,Nortriptyline,53284,3395545
-2019,Glimepiride,53410,1860955
-2019,Ropinirole Hydrochloride,53431,2553243
-2019,Dosulepin Hydrochloride,53926,2792816
-2019,Risedronate Sodium,55067,298413
-2019,Buprenorphine Hydrochloride,55191,1241035
-2019,Zolpidem Tartrate,56489,1261560
-2019,Verapamil Hydrochloride,56951,3055109
-2019,Phenytoin Sodium,58796,3360798
-2019,Metoclopramide Hydrochloride,59372,3076339
-2019,Eplerenone,64793,1759268
-2019,Pioglitazone Hydrochloride,66065,2073308
-2019,Sulfasalazine,70656,9086719
-2019,Estradiol with Progestogen,73013,6756937
-2019,Lithium Carbonate,73964,2730722
-2019,Procyclidine Hydrochloride,75000,2615796
-2019,Melatonin,78161,4022481
-2019,Temazepam,79335,1974582
-2019,Topiramate,79562,5301220
-2019,Cyclizine Hydrochloride,80696,4152771
-2019,Clonazepam,82127,3374396
-2019,Co-Beneldopa (Benserazide/Levodopa),84216,7519937
-2019,Methylphenidate Hydrochloride,87369,3482330
-2019,Dapagliflozin,89011,2889720
-2019,Lorazepam,90401,2610619
-2019,Empagliflozin,91866,2906229
-2019,Bisacodyl,95002,4409929
-2019,Aripiprazole,95200,2297754
-2019,Trazodone Hydrochloride,96258,3388571
-2019,Mesalazine (Systemic),98967,14108729
-2019,Escitalopram,100444,3186911
-2019,Alogliptin,100495,3081456
-2019,Memantine Hydrochloride,108082,2415619
-2019,Co-Careldopa (Carbidopa/Levodopa),108237,9845623
-2019,Pantoprazole,110863,4242655
-2019,Paroxetine Hydrochloride,112965,4073165
-2019,Oxycodone Hydrochloride,118821,6257310
-2019,Hyoscine Butylbromide,123001,10456219
-2019,Nicorandil,126517,7001500
-2019,Prochlorperazine Maleate,133590,5925967
-2019,Dihydrocodeine Tartrate,134848,12038583
-2019,Enalapril Maleate,136880,5764156
-2019,Sumatriptan Succinate,137378,1347582
-2019,Betahistine Hydrochloride,140625,11225655
-2019,Risperidone,140642,4585834
-2019,Loperamide Hydrochloride,143607,11612187
-2019,Bumetanide,144292,6338174
-2019,Ezetimibe,153540,4947971
-2019,Irbesartan,154380,5608003
-2019,Nifedipine,156364,7793395
-2019,Co-Dydramol (Dihydrocodeine/Paracet),157676,17796502
-2019,Esomeprazole,168253,6936625
-2019,Linagliptin,172470,4561165
-2019,Mebeverine Hydrochloride,174868,13544070
-2019,Donepezil Hydrochloride,177058,3553519
-2019,Levetiracetam,182177,11124336
-2019,Carbamazepine,185053,12610046
-2019,Docusate Sodium,188078,11738488
-2019,Sodium Valproate,189208,13722145
-2019,Rosuvastatin Calcium,202678,6800126
-2019,Olanzapine,205072,4827251
-2019,Duloxetine Hydrochloride,209258,6633419
-2019,Sitagliptin,213910,6535306
-2019,Pravastatin Sodium,216275,7131375
-2019,Lercanidipine Hydrochloride,218590,7440961
-2019,Morphine Sulfate,223836,13288591
-2019,Diltiazem Hydrochloride,226849,9607955
-2019,Spironolactone,231699,5992788
-2019,Lamotrigine,242936,13947898
-2019,Digoxin,249738,6401293
-2019,Quetiapine,302027,10699887
-2019,Senna,312047,13406217
-2019,Felodipine,312294,11047630
-2019,Finasteride,314159,9411100
-2019,Rivaroxaban,354989,9892580
-2019,Perindopril Erbumine,377051,13364862
-2019,Venlafaxine,384307,14018407
-2019,Isosorbide Mononitrate,392352,13197978
-2019,Indapamide,397786,13975654
-2019,Diazepam,414139,11526779
-2019,Codeine Phosphate,426899,35774006
-2019,Apixaban,452153,23309310
-2019,Zopiclone,461301,8874947
-2019,Propranolol Hydrochloride,466842,27124554
-2019,Alendronic Acid,507297,2449581
-2019,Ranitidine Hydrochloride,510895,24845417
-2019,Tramadol Hydrochloride,520970,49543323
-2019,Doxazosin Mesilate,565159,26422025
-2019,Fluoxetine Hydrochloride,569323,25495856
-2019,Atenolol,571227,19832742
-2019,Gliclazide,590354,39641207
-2019,Candesartan Cilexetil,595256,21114567
-2019,Pregabalin,629947,31198751
-2019,Gabapentin,637273,65801732
-2019,Warfarin Sodium,644622,33361938
-2019,Prednisolone,703611,34571247
-2019,Lisinopril,742041,27485981
-2019,Bendroflumethiazide,797205,28590564
-2019,Mirtazapine,803332,19338392
-2019,Clopidogrel,851208,23465198
-2019,Losartan Potassium,856901,30129361
-2019,Furosemide,989222,30940410
-2019,Amitriptyline Hydrochloride,1180642,57534498
-2019,Citalopram Hydrobromide,1208057,39798382
-2019,Co-Codamol (Codeine Phos/Paracetamol),1311105,149983729
-2019,Sertraline Hydrochloride,1366109,44675344
-2019,Paracetamol,1451962,182852146
-2019,Metformin Hydrochloride,1870349,165487737
-2019,Aspirin,1934642,59243457
-2019,Simvastatin,1947514,63733966
-2019,Bisoprolol Fumarate,2060823,64156561
-2019,Lansoprazole,2222754,72889982
-2019,Ramipril,2458788,85734785
-2019,Amlodipine,2538175,87336916
-2019,Omeprazole,2671523,102327779
-2019,Levothyroxine Sodium,2781891,102072348
-2019,Atorvastatin,3731090,120772414
+chemical,total_items,total_tabs_caps
+Sodium Picosulfate,1,50
+Sibutramine,1,56
+Potassium Iodate,1,4
+Perindopril Tosilate,1,14
+Kaolin Light,1,24
+Flurazepam Hydrochloride,1,30
+Rosiglitazone,2,84
+Phenprocoumon,2,400
+Netupitant/Palonosetron Hcl,2,4
+Pindolol With Diuretic,2,49
+Spironolactone With Thiazides,2,56
+Telotristat Ethyl,2,168
+Maprotiline Hydrochloride,2,300
+Diosmin/Hesperidin,2,190
+Guanfacine Hydrochloride,2,58
+Betamethasone,3,198
+Riociguat,3,252
+Lofexidine Hydrochloride,4,269
+Aluminium & Magnesium & Act Simeticone,4,540
+Nicotinic Acid,5,820
+Amoxapine,5,732
+Etidronate Disodium,6,330
+Other Pancreatin Preps,6,1200
+Melperone Hydrochloride,6,709
+Macitentan,7,183
+Furosemide/Potassium,8,168
+Perindopril Erbumine with Diuretic,9,458
+Chenodeoxycholic Acid,9,704
+Etamsylate,12,968
+Policosanol,12,1400
+Tadalafil (Vasodilator Antihypertensive),12,280
+Alprazolam,12,568
+Ticlopidine Hydrochloride,13,728
+Perindopril Tosilate/Indapamide,14,566
+Bisoprolol Fumarate/Aspirin,14,368
+Pergolide Mesilate,14,992
+Etilefrine Hydrochloride,16,970
+Colestipol Hydrochloride,17,3545
+Co-Danthramer (Dantron/Poloxamer 188),17,531
+"Estradiol, Estriol and Estrone",18,812
+Tripotassium Dicitratobismuthate,18,1600
+Dydrogesterone,19,1030
+Nicotinic Acid Derivatives,20,2797
+Acetyl-L-Carnitine,21,3674
+Fenofibrate/Simvastatin,22,776
+Ambrisentan,24,379
+Biperiden Hydrochloride,27,173
+Triamterene,30,1481
+Aspirin & Caffeine,35,2415
+Isradipine,37,2548
+Co-Triamterzide(Triamterene/Hydchloroth),38,1470
+Naltrexone/Bupropion,40,5192
+Felbamate,43,7892
+Mesterolone,47,3904
+Oxandrolone,48,2988
+Oxprenolol Hydrochloride,50,3418
+Other Preparations For Biliary Disorders,54,4102
+Caffeine,62,7544
+Bosentan,70,3249
+Indoramin,71,3265
+Amiloride Hydrochloride With Thiazides,73,1960
+Fluphenazine Hydrochloride,78,3794
+Eluxadoline,79,4840
+Co-Zidocapt (Hydchloroth/Captopril),90,4255
+Cortisone Acetate,91,6933
+Cariprazine,92,2400
+Aprepitant,93,1080
+Nefazodone Hydrochloride,97,10382
+Quinidine Sulfate,100,15077
+Co-Danthrusate (Dantron/Docusate Sod),100,5611
+Oxitriptan,102,21170
+Other Stimulant Laxative Preps,108,4396
+Chlorothiazide,123,13672
+Tolvaptan,144,1652
+Empagliflozin/Linagliptin,159,4469
+Prednisone,159,6180
+Orphenadrine Hydrochloride,176,9245
+Paracetamol & Caffeine,188,16540
+Pitolisant Hydrochloride,191,8299
+Timolol With Diuretic,192,8853
+Thioridazine,193,14946
+Paracetamol & Ibuprofen,210,15882
+Diamorphine Hydrochloride (Systemic),225,16294
+Prasterone,227,16108
+Benzatropine Mesilate,248,6611
+Cilazapril,254,9156
+Atropine Sulfate,313,16028
+Co-Codaprin (Codeine Phos/Aspirin),314,29546
+Alverine Citrate/Simeticone,316,27584
+Perphenazine,322,19001
+Aspirin Combined Preparations,346,26300
+Diazoxide,357,40876
+Secobarbital Sodium,375,17677
+Other Bisphosphonate & Other Preps,376,2217
+Butobarbital,378,22776
+Oestrogens Conjugated with Bazedoxifene,381,24198
+Magnesium Carbonate,418,28463
+Amobarbital Sodium,448,25769
+Sultiame,457,24927
+Nabilone,482,22496
+Granisetron Hydrochloride,584,18373
+Trimetazidine Hydrochloride,584,35164
+Pentosan Polysulfate Sodium,586,55107
+Tolcapone,587,54050
+Nimodipine,605,57996
+Azilsartan Medoxomil,608,27096
+Dipyridamole & Aspirin,652,42676
+Co-Flumactone (Hydroflumeth/Spironol),656,31421
+Phenindione,656,64413
+Ertugliflozin,748,19772
+Cyproterone Acetate,754,34179
+Meprobamate,772,46758
+Triamterene With Thiazides,838,32549
+Stiripentol,883,80628
+Asenapine,961,38402
+Phenoxybenzamine Hydrochloride,974,100728
+Ergotamine Tartrate,1208,44163
+Co-Phenotrope (Diphenox HCl/Atrop Sulph),1216,109869
+Lubiprostone,1226,57278
+Pirenzepine,1264,47118
+Metyrapone,1270,137079
+Flunarizine Dihydroch,1309,62020
+Tryptophan,1314,165217
+Nalmefene,1344,26306
+Moxisylyte Hydorchloride,1347,154934
+Hydrochlorothiazide,1377,51162
+Sildenafil(Vasodilator Antihypertensive),1421,95331
+Quinapril Hydrochloride with Diuretic,1497,70416
+Pentazocine Hydrochloride,1622,184730
+Magnesium Trisilicate,1706,164172
+Isocarboxazid,1742,107188
+Acipimox,1831,152852
+Tiagabine,1842,149683
+Pindolol,1910,110118
+Ulipristal Acet,1948,74852
+Phenytoin,2018,175703
+Paliperidone,2109,57413
+Isometheptene Mucate,2114,73836
+Dipipanone Hydrochloride,2154,158416
+Doxylamine Succinate/Pyridoxine HCl,2224,80944
+Mexiletine Hydrochloride,2391,257883
+Ethinylestradiol,2409,150248
+Clozapine,2507,150016
+Beclometasone Dipropionate (Systemic),2941,84963
+Mianserin Hydrochloride,2945,146791
+Nicotine,3071,398356
+Levothyroxine Sodium & Liothyronine,3131,375715
+Perindopril + Calcium Channel Blocker,3334,135497
+Clomifene Citrate,3358,88827
+Compound Alginates&Prop Indigestion Prep,3468,220581
+Loperamide Hydrochloride & Simeticone,3538,187620
+Pimozide,3697,126750
+Xipamide,3706,129699
+Triamterene With Loop Diuretics,3822,146956
+Spironolactone With Loop Diuretics,3898,130022
+Aluminium Hydroxide,4059,387596
+Magnesium Oxide,4065,455951
+Cloral Betaine,4272,148816
+Benperidol,4631,228132
+Quinagolide Hydrochloride,4636,223328
+Misoprostol,4772,325499
+Deflazacort,4883,413275
+Danazol,4988,239415
+Paracetamol Combined Preparations,5132,517319
+Methylprednisolone,5270,175759
+Other Test For Helicobacter Pylori Preps,5271,5284
+Alendronic Acid & Colecalciferol,5419,26703
+Dimenhydrinate/Cinnarizine,5737,456828
+Tolfenamic Acid,5822,86014
+Tranylcypromine Sulfate,6103,425501
+Vigabatrin,6179,637207
+Calcium Carbonate,6269,435353
+Amiloride HCl With Loop Diuretics,6322,232804
+Piracetam,6409,807399
+Disopyramide Phosphate,6416,406795
+Testosterone Undecanoate,6454,449862
+Trifluoperazine,6554,388553
+Estradiol and Estriol with Progestogen,7012,664455
+Nateglinide,7196,602495
+Ramipril with Calcium Channel Blocker,7241,326839
+Imidapril Hydrochloride,7856,275290
+Olmesartan Medox/Amlodipine/Hydchloroth,8252,263465
+Hydromorphone Hydrochloride,8334,552877
+Gemfibrozil,9009,552391
+Saxagliptin/Dapagliflozin,9154,308413
+Sucralfate,9209,803369
+Rufinamide,9978,881090
+Sodium Clodronate,9993,628292
+Acebutolol Hydrochloride,10006,579658
+Simeticone,10435,670813
+Saxagliptin/Metformin,10819,642544
+Safinamide,11264,316208
+Canagliflozin/Metformin,11393,702077
+Olsalazine Sodium,11788,1459675
+Quinapril Hydrochloride,12135,493076
+Phenelzine Sulfate,12166,1016952
+Buprenorph HCl/Naloxone HCl,12497,265967
+Nadolol,12534,467528
+Clomethiazole,12602,560087
+Bromocriptine,12603,681458
+Fosinopril Sodium,12848,573825
+Chlortalidone,13054,374304
+Rutosides,13068,1229557
+Atenolol With Calcium Channel Blocker,13288,645351
+Sodium Cromoglicate,13365,2464161
+Disopyramide,13473,1223569
+Famotidine,13720,582085
+Methylcellulose,14493,1973301
+Enalapril Maleate with Diuretic,14652,617166
+Co-Proxamol (Dextroprop HCl/Paracet),14677,2075368
+Eletriptan,15122,175163
+Pethidine Hydrochloride,15292,1171681
+Glibenclamide,15358,1032112
+Fentanyl,15377,785416
+Torasemide,15704,559086
+Nicardipine Hydrochloride,16058,1250664
+Olmesartan Medoxomil/Hydrochlorothiazide,16664,607073
+Lurasidone,16734,401854
+Moclobemide,16834,888728
+Naltrexone Hydrochloride,17156,378516
+Riluzole,17353,988131
+Olmesartan Medoxomil/Amlodipine,17761,648039
+Nizatidine,17867,839391
+Metolazone,18161,228565
+Simvastatin & Ezetimibe,18225,659916
+Timolol,18300,796729
+Opicapone,18559,505774
+Lormetazepam,18596,599203
+Glycopyrronium Bromide,18631,1407854
+Propafenone Hydrochloride,18862,1664433
+Agomelatine,19658,771730
+Aliskiren,19662,695919
+Tolbutamide,19900,1408453
+Eslicarbazepine Acetate,19963,823722
+Pentoxifylline,20085,1248605
+Promazine Hydrochloride,20232,920076
+Loprazolam Mesilate,21071,639233
+Minoxidil,21231,1165298
+Cilostazol,21820,1221195
+Acenocoumarol,22294,2669616
+Guanfacine,22395,748066
+Fluvoxamine Maleate,22505,1135125
+Dronedarone Hydrochloride,22978,1420156
+Brivaracetam,23447,1272131
+Valsartan/Amlodipine,24120,993626
+Doxepin,24224,1140810
+Reboxetine,24704,1310984
+Ciprofibrate,24766,782886
+Ethosuximide,24900,2793152
+Bupropion Hydrochloride,24991,1411674
+Naloxegol,25861,628114
+Tetrabenazine,29095,1568051
+Oestrogens Conjugated with Progestogen,29430,2749309
+Methadone Hydrochloride,30431,3760732
+Trimipramine Maleate,30556,1584333
+Acarbose,30888,2412159
+Metformin Hydrochloride/Pioglitazone,30952,2012027
+Selegiline Hydrochloride,31508,1094673
+Glipizide,31577,2465569
+Promethazine Teoclate,32534,975198
+Perindopril Arginine,32712,1309950
+Disulfiram,32955,765491
+Betamethasone Sodium Phosphate,33686,2630362
+Celiprolol Hydrochloride,34319,1389325
+Dicycloverine Hydrochloride,34487,2841060
+Levomepromazine Maleate,34611,1217959
+Telmisartan with Diuretic,36098,1409272
+Dapagliflozin/Metformin,36122,2413117
+Prazosin Hydrochloride,37261,3332627
+Propylthiouracil,39780,3438413
+Linaclotide,39797,1308930
+Cimetidine,41949,2459092
+Dexamfetamine Sulfate,42479,4460027
+Almotriptan,43023,412688
+Oxycodone HCl/Naloxone HCl,44476,2465345
+Perindopril Arginine with Diuretic,45528,2031480
+Metformin Hydrochloride/Vildagliptin,45642,2971507
+Empagliflozin/Metformin,46033,2995962
+Balsalazide Sodium,46685,8962879
+Entacapone,47938,4225272
+Perampanel,48421,1341311
+Chlordiazepoxide Hydrochloride,48970,2136922
+Raloxifene Hydrochloride,49689,1717404
+Vildagliptin,49958,2498717
+Glyceryl Trinitrate,51376,5199900
+Eprosartan,54928,1985754
+Liothyronine Sodium,55295,2843949
+Repaglinide,55499,4877265
+Frovatriptan,56779,565278
+Budesonide,58448,4196630
+Pericyazine,58717,3157310
+Linagliptin/Metformin,60272,3654229
+Valsartan with Diuretic,61942,2379772
+Prasugrel,62878,1895541
+Captopril,64382,4308884
+Propantheline Bromide,64662,6762152
+Alogliptin/Metformin,68648,4256987
+Meptazinol Hydrochloride,68933,5558184
+Terazosin Hydrochloride,69470,2568761
+Isosorbide Dinitrate,71381,3552255
+Methyldopa,71441,5486559
+Trandolapril,74100,2984223
+Hyoscine Hydrobromide,74500,3166795
+Cabergoline,74884,925018
+Oxazepam,75679,3380900
+Buprenorphine,77042,5545492
+Zuclopenthixol Hydrochloride,81111,9066612
+Modafinil,82498,5372697
+Analgesics with Anti-Emetics,87832,2777086
+Irbesartan with Diuretic,95051,3699341
+Oxcarbazepine,101156,7710040
+Colesevelam Hydrochloride,102493,14111133
+Omega-3-Acid Ethyl Esters,106272,6936320
+Co-Amilozide (Amiloride HCl/Hydchloroth),106523,4034754
+Labetalol Hydrochloride,108654,8400416
+Trihexyphenidyl Hydrochloride,109076,6488746
+Fluvastatin Sodium,111646,3808559
+Midodrine Hydrochloride,112257,8716177
+Lisinopril with Diuretic,113931,4556501
+Atomoxetine Hydrochloride,116056,3679371
+Prucalopride,117429,3603406
+Vortioxetine,121470,2838791
+Sulpiride,123519,5755710
+Naftidrofuryl Oxalate,125310,11156236
+Acamprosate Calcium,126239,12439049
+Amantadine Hydrochloride,129881,6446600
+Estradiol Valerate,131483,11171431
+Medroxyprogesterone Acetate,133919,7347403
+Naratriptan Hydrochloride,147056,1498594
+Desmopressin Acetate,147337,8574137
+Lacosamide,148292,8091389
+Lisdexamfetamine Dimesylate,148436,4246466
+Imipramine Hydrochloride,151931,11492293
+Co-Tenidone (Atenolol/Chlortalidone),152562,5847221
+Primidone,153061,10153463
+Progesterone,156580,9909955
+Metformin Hydrochloride/Sitagliptin,158600,10369003
+Tapentadol Hydrochloride,159139,9712634
+Levodopa/Carbidopa/Entacapone,159369,14873687
+Amiloride Hydrochloride,160937,5817222
+Zonisamide,161226,10697023
+Ibandronic Acid,162120,1385157
+Galantamine,163370,3524028
+Flupentixol Hydrochloride,166568,7350204
+Lofepramine Hydrochloride,171653,9544525
+Hydralazine Hydrochloride,177964,9856626
+Buspirone Hydrochloride,178598,9158025
+Phenobarbital,182376,11460560
+Oestrogens Conjugated,183640,14679297
+Tibolone,189480,10730775
+Rivastigmine,190993,8107164
+Losartan Potassium With Diuretic,197028,7726277
+Dexamethasone,199308,7926634
+Sacubitril/Valsartan,199386,10898311
+Rasagiline Mesilate,202343,5711286
+Saxagliptin,221694,6553997
+Ondansetron Hydrochloride,229087,8741822
+Clomipramine Hydrochloride,230493,13912596
+Alverine Citrate,244404,20355107
+Chlorpromazine Hydrochloride,245616,10633108
+Haloperidol,257612,10345657
+Dipyridamole,268577,19427046
+Nefopam Hydrochloride,270379,25143193
+Clobazam,281779,12038351
+Dutasteride,296171,9278994
+Ursodeoxycholic Acid,304934,30592260
+Varenicline Tartrate,307256,8272321
+Alginic Acid Compound Preparations,308358,24025059
+Zolmitriptan,308482,3323414
+Co-Amilofruse (Amiloride HCl/Frusemide),324050,10701628
+Rizatriptan,325778,2815955
+Domperidone,327318,19516622
+Telmisartan,328644,12121535
+Cinnarizine,344956,28635809
+Rabeprazole Sodium,351651,13978182
+Orlistat,356107,32652857
+Estradiol,364678,30784560
+Moxonidine,384128,16454465
+Amisulpride,390228,14307601
+Valsartan,394599,16534821
+Metoprolol Tartrate,405824,19222027
+Bezafibrate,413479,15304738
+Norethisterone,422836,23221759
+Tranexamic Acid,423226,27507633
+Nitrazepam,424604,11517313
+Flecainide Acetate,425182,30752508
+Clonidine Hydrochloride,426300,47980900
+Hydrocortisone,430187,28665194
+Olmesartan Medoxomil,445123,14340962
+Ranolazine,456401,23543399
+Pramipexole,463775,25233780
+Dabigatran Etexilate,469969,28256504
+Canagliflozin,474217,15833175
+Sotalol Hydrochloride,475441,30778189
+Amiodarone Hydrochloride,476421,13184111
+Ivabradine,491727,22777303
+Pizotifen Malate,523854,25314856
+Peppermint Oil,531127,44637614
+Fludrocortisone Acetate,535450,17230072
+Buprenorphine Hydrochloride,539496,12362902
+Fenofibrate,555896,18726892
+Carbimazole,573249,26425498
+Nebivolol,574991,18778334
+Lacidipine,576379,20766181
+Ticagrelor,580398,32511826
+Carvedilol,584108,29567300
+Dosulepin Hydrochloride,589453,30571490
+Valproic Acid,592300,27215499
+Pancreatin,596763,156953090
+Glimepiride,610153,21231966
+Risedronate Sodium,630475,3415874
+Ropinirole Hydrochloride,633426,30197872
+Zolpidem Tartrate,636536,14237334
+Nortriptyline,644456,41152757
+Verapamil Hydrochloride,654183,35386427
+Metoclopramide Hydrochloride,668655,34610595
+Phenytoin Sodium,677350,38793409
+Edoxaban,718221,19946669
+Pioglitazone Hydrochloride,755950,23733520
+Eplerenone,800820,21657790
+Sulfasalazine,828827,106355311
+Lithium Carbonate,862384,31686582
+Procyclidine Hydrochloride,872104,30321636
+Temazepam,890908,22170531
+Estradiol with Progestogen,907978,83933127
+Cyclizine Hydrochloride,934651,48088894
+Melatonin,939238,48169871
+Topiramate,952457,62885350
+Clonazepam,970212,39854350
+Co-Beneldopa (Benserazide/Levodopa),1004206,90026969
+Bisacodyl,1045375,48472165
+Lorazepam,1050902,30195952
+Methylphenidate Hydrochloride,1066345,42343571
+Dapagliflozin,1106330,35840650
+Trazodone Hydrochloride,1115617,39164919
+Aripiprazole,1152730,27649035
+Mesalazine (Systemic),1164673,165783809
+Escitalopram,1224395,38904119
+Empagliflozin,1268411,40193629
+Co-Careldopa (Carbidopa/Levodopa),1287947,118346184
+Pantoprazole,1311022,50388838
+Paroxetine Hydrochloride,1311815,47206871
+Alogliptin,1311849,40214937
+Memantine Hydrochloride,1321894,29913007
+Oxycodone Hydrochloride,1415426,74191418
+Hyoscine Butylbromide,1437657,123214766
+Nicorandil,1442530,79528052
+Prochlorperazine Maleate,1513178,67776653
+Dihydrocodeine Tartrate,1557017,138441403
+Enalapril Maleate,1582711,66706158
+Nifedipine,1640808,79973545
+Risperidone,1641908,53270724
+Betahistine Hydrochloride,1649248,131806318
+Sumatriptan Succinate,1661348,16275563
+Loperamide Hydrochloride,1673899,136610984
+Bumetanide,1727695,76753590
+Co-Dydramol (Dihydrocodeine/Paracet),1774763,199986600
+Irbesartan,1807006,65442371
+Ezetimibe,1842926,59317891
+Esomeprazole,2024976,83676381
+Donepezil Hydrochloride,2076341,41897819
+Mebeverine Hydrochloride,2082984,161466341
+Linagliptin,2116760,55699813
+Carbamazepine,2164759,147543265
+Levetiracetam,2194416,133766984
+Sodium Valproate,2222935,163638929
+Docusate Sodium,2235741,140145555
+Olanzapine,2412980,56450562
+Sitagliptin,2477666,75256445
+Rosuvastatin Calcium,2502757,83992600
+Pravastatin Sodium,2524296,83140599
+Duloxetine Hydrochloride,2566844,81637300
+Diltiazem Hydrochloride,2624906,110681470
+Lercanidipine Hydrochloride,2657260,90432967
+Morphine Sulfate,2663745,157393836
+Spironolactone,2756176,71433581
+Digoxin,2892768,74412736
+Lamotrigine,2920078,166796472
+Quetiapine,3603414,127026644
+Senna,3666796,157612159
+Felodipine,3688513,130243922
+Finasteride,3737232,111795454
+Rivaroxaban,4284101,120160399
+Perindopril Erbumine,4387574,155180305
+Isosorbide Mononitrate,4582421,154217746
+Venlafaxine,4615813,168098672
+Diazepam,4791928,131814947
+Indapamide,4793574,168226653
+Codeine Phosphate,4934461,413367562
+Zopiclone,5110805,98352156
+Propranolol Hydrochloride,5637455,327494784
+Apixaban,5758934,299024459
+Alendronic Acid,5910764,28354788
+Ranitidine Hydrochloride,5946525,286831478
+Tramadol Hydrochloride,6071600,574748698
+Atenolol,6537078,227204986
+Fluoxetine Hydrochloride,6667563,298524864
+Doxazosin Mesilate,6686143,313976272
+Gliclazide,6830189,457348676
+Candesartan Cilexetil,7098670,251520926
+Warfarin Sodium,7116458,368200517
+Prednisolone,7126435,360839556
+Gabapentin,7254341,740557946
+Pregabalin,7320793,361923034
+Lisinopril,8645586,320189316
+Bendroflumethiazide,9066477,324716610
+Mirtazapine,9556747,229239482
+Clopidogrel,10140039,280117677
+Losartan Potassium,10257309,359813098
+Furosemide,11683900,365659123
+Amitriptyline Hydrochloride,13866466,676426783
+Citalopram Hydrobromide,14043954,463003883
+Co-Codamol (Codeine Phos/Paracetamol),15014107,1722100562
+Paracetamol,16384395,2078005085
+Sertraline Hydrochloride,16552120,541134784
+Simvastatin,21971762,719019163
+Metformin Hydrochloride,22212640,1960904789
+Aspirin,22330272,682635469
+Bisoprolol Fumarate,24766490,772389534
+Lansoprazole,26525748,868416619
+Ramipril,29212947,1018134395
+Amlodipine,30358933,1043281996
+Omeprazole,31550342,1207641773
+Levothyroxine Sodium,32798750,1198096497
+Atorvastatin,45389270,1468340142

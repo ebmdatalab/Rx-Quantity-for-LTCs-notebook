@@ -20,6 +20,7 @@
 #
 # I have had a quick skim of the systematic review (based exclusively on American data) and the CPRD study. The policy briefing states that _current guidance to issue 28-day repeat prescriptions_. This deviates from the DataLab assertion in the seven days measure that there is no consensus. Martin, Payne and Wilson study is is based on old guidance from a handful of areas. This notebook seeks to ascertain what the variation is in 28 v 56 v 84 across the country for our basket of medicines commonly prescribed once daily for long term conditions on the complete prescribing dataset for England.
 
+# +
 ##importing libraries that are need to support analysis
 import pandas as pd
 import numpy as np
@@ -29,10 +30,9 @@ import matplotlib.pyplot as plt
 
 
 # +
-##here we want to create a larger basket building on medicines in the seven daya basket
+##here we want to create a larger basket building on medicines in the seven days measure basket
 sql='''
 SELECT
-extract(year from month) AS year,
 bnf.chemical,
 SUM(items) AS total_items,
 SUM(total_quantity) AS total_tabs_caps
@@ -44,12 +44,11 @@ ON
   presc.bnf_code=bnf.presentation_code
 WHERE
 (presentation LIKE '%_Tab%' or presentation LIKE '%_Cap%')
-    AND SUBSTR(bnf_code,0,2) IN ('01','02','04','06') ## here we use common BNF chapters. Chapter 3 resp is excluded due to amount of inhalers
-    AND (month >= "2019-01-01")
-    AND (month <= "2019-01-01")
+    AND SUBSTR(bnf_code,0,2) IN ('01','02','04','06') ## here we use common BNF chapters. Chapter 3 resp is excluded due to amount of inhalers and ch5 for short course ABx
+    AND (month >= "2018-12-01") ##restrict to last 12 month
+    AND (month <= "2019-11-01")
 GROUP BY
-bnf.chemical,
-year
+bnf.chemical
 ORDER BY
 total_items
 '''
@@ -163,9 +162,11 @@ df_ccg = df_ltc.groupby(['pct','quantity_per_item'])['items'].sum().reset_index(
 df_ccg["total_quantity"] = df_ccg["quantity_per_item"]*df_ccg["items"] 
 df_ccg.tail(5)
 
+# +
 df_common_ccg = df_ccg.loc[(df_ccg["quantity_per_item"].isin(lst))]
 
 
+# +
 ccg_total = df_common_ccg.groupby(["pct"]).sum().reset_index()
 ccg_total=ccg_total.rename(columns = {'total_quantity':'basket_qty'}).drop(columns =['quantity_per_item', 'items']) ##we don't need two columns
 ccg_total.head()
