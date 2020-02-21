@@ -26,7 +26,7 @@
 # I have had a quick skim of the systematic review (based exclusively on American data) and the CPRD study. The policy briefing states that _current guidance to issue 28-day repeat prescriptions_. This deviates from the DataLab assertion in the seven days measure that there is no consensus. Martin, Payne and Wilson study is is based on old guidance from a handful of areas. This notebook seeks to ascertain what the variation is in 28 v 56 v 84 across the country for our basket of medicines commonly prescribed once daily for long term conditions on the complete prescribing dataset for England.
 
 # +
-##importing libraries that are need to support analysis
+##importing libraries that are needed to support analysis
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -55,7 +55,7 @@ bnf_code LIKE "0206020A0%") ##amlodipine
 AND
 (bnf_name LIKE '%_Tab%' or bnf_name LIKE '%_Cap%') ##this restricts to tablets or capsules
 AND (month BETWEEN '2018-12-01'
-    AND '2019-12-01')
+    AND '2019-11-01')
 
 GROUP BY
   pct,
@@ -131,7 +131,7 @@ items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/1E6
 print(f'There are {items_28d:,.1f}M one-month scripts for our basket of common medicines. There will be a substantial number of prescriptions that need amending.')
 # -
 
-# This basket is based on once daily medicines - however now we know the proprotions we can include twice/thrice daily medicines for medicines that are for long-term conditions which relatively stable dosing patterns. The twice/thrice is quantity repeat should be standardised around the same amount. To do this let us review the top 50 medicines dispensed last year based on tab/caps volume. 
+# This basket is based on once daily medicines - however now we know the proportions we can include twice/thrice daily medicines for medicines that are for long-term conditions which relatively stable dosing patterns. The twice/thrice is quantity repeat should be standardised around the same amount. To do this let us review the top 50 medicines dispensed last year based on tab/caps volume. 
 
 # +
 sql2='''
@@ -166,23 +166,30 @@ df_ltc_raw .head(10)
 df_ltc_for_filter = df_ltc_raw.groupby(["chemical", "chemical_code"])["total_items","total_tabs_caps"].sum().reset_index().sort_values("total_tabs_caps", ascending=False)
 df_ltc_for_filter.head()
 
-# + active=""
-# df_ltc_for_filter.to_csv('df_ltc_for_filter.csv')
-# -
+df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
 
-df_filtered = pd.read_csv("../data/filtered.csv")
+# (shortlist exported for manual filtering)
+
+df_filtered = pd.read_csv(os.path.join('..','data','filtered.csv'))
 df_filtered.head()
 
-df_filtered.chemical.nunique()
+# +
+count1 = df_filtered.chemical.nunique()
+count2 = df_filtered.loc[(df_filtered["ltc_stablish"] == 1.0)].chemical.nunique()
 
-# 27 indivudal chemicals are included in our basket
+print (f"Out of {count1} chemicals, "
+       f"we have selected {count2} "
+       "for our basket")
+# -
 
 # ## Data for Cost Modelling
+# **Note: to use this for cost modelling will also need to include the net_cost field in SQL query.**
 
 data_cost_prep = df_ltc_raw.merge(df_filtered[['chemical_code', 'ltc_stablish']], how="outer", on="chemical_code")
 data_cost_prep.head(2)
 
 data_cost_model = data_cost_prep.loc[(data_cost_prep["ltc_stablish"] == 1.0)]
+data_cost_model.to_csv(os.path.join('..','data','data_cost_model.csv'))
 data_cost_model.head(2)
 
 # ## CCG Variation

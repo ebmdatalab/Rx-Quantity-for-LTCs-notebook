@@ -2785,10 +2785,19 @@
 
 # ## Aim: To model the cost impact of dispensing one month rather than 2 or 3 months
 #
-# We examined the cost of a policy switch to recommend two or three monthly prescriptions across the NHS where there is no clinical rationale for issuing shorter durations. We estimated the cost to the NHS in ££, 
-# - savings to  NHS in staff time, 
-# - savings in time for patients and 
-# - the estimated economic burden that would be relieved. 
+# We examined the cost of a policy switch to recommend two or three monthly prescriptions across the NHS where there is no clinical rationale for issuing shorter durations. 
+#
+
+import os
+from ebmdatalab import bq
+import pandas as pd
+import ipywidgets as widgets
+from IPython.display import display
+from ipywidgets import Layout
+
+# # \*** Scroll down to "Model" for the fully-formed model. 
+#
+# Earlier sections describe reasoning and set out the detail behind the calculations
 
 # ### What are the costs to include?
 
@@ -3019,94 +3028,10 @@ patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amen
 # -
 
 
-# ## Output with widgets to adjust variables
-
-# +
-# ensure tests pass despite conflict with widget output:
-# NBVAL_IGNORE_OUTPUT 
-
-
-import ipywidgets as widgets
-from IPython.display import display
-from ipywidgets import Layout
-
-prescriptions = 16212361 # total 28-day prescriptions
-
-# make widget titles fit by setting the style
-style = {'description_width': 'initial'}
-
-
-months_supply_slider = widgets.IntSlider(min=2, max=4, step=1, description='Months supply:', style=style, value=3)
-
-# proportion of prescriptions amenable to change
-percent_amenable_slider = widgets.FloatSlider(min=0.2, max=0.95, step=0.05, description='Proportion amenable:', style=style, value=0.9)
-
-# proportion of prescriptions approved by a GP
-prop_doc_slider = widgets.FloatSlider(min=0.1, max=0.9, step=0.1, description='Proportion GP:', style=style, value=0.5)
-
-# time taken to approve a repeat prescription (minutes)
-time_slider = widgets.FloatSlider(min=0.1, max=2, step=0.1, description='Time per presc (min):', style=style, value=0.5)
-
-# proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
-prop_erd_slider = widgets.FloatSlider(min=0, max=1, step=0.1, description='e-RD proportion:', style=style, value=0.5)
-
-# price per item
-priceperitem_slider = widgets.FloatSlider(min=0.5, max=2, step=0.1, description='Price per item (£):', style=style, value=0.8)
-
-# cost of public time per minute
-cost_public_slider = widgets.IntSlider(min=5, max=15, step=1, description='Cost of public time (£):', style=style, value=11)
-
-# time to collect prescription (minutes)
-time_collect_slider = widgets.IntSlider(min=0, max=30, step=1, description='Time to collect (min):', style=style, value=10)
-
-    
-def f(months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
-      priceperitem_slider, cost_public_slider, time_collect_slider):
-    
-    months_supply = months_supply_slider
-    percent_amenable = percent_amenable_slider
-    prop_doc = prop_doc_slider
-    t = time_slider
-    prop_erd = prop_erd_slider
-    priceperitem = priceperitem_slider
-    cost_public = cost_public_slider
-    time_collect = time_collect_slider
-    
-    dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable)    
-    staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
-    waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
-    patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
-
-    print('Total prescriptions = {:,} \n'
-          '\n'
-          'Dispensing fees =  £{:,.0f} \n'
-          'Staff cost =  £{:,.0f} \n'
-          'Wasted meds =  £{:,.0f} \n'
-          'Patient cost =  £{:,.0f} \n \n'
-          'Overall impact: =  £{:,.0f}'
-          .format(prescriptions, dispensing_fees, staff_cost, waste, patient_cost, staff_cost + waste + patient_cost),
-         )
-
-out = widgets.interactive_output(f, 
-                                 {'months_supply_slider': months_supply_slider, 
-                                  'percent_amenable_slider': percent_amenable_slider,
-                                  'prop_doc_slider': prop_doc_slider, 
-                                  'time_slider': time_slider, 
-                                  'prop_erd_slider': prop_erd_slider,
-                                  'priceperitem_slider': priceperitem_slider, 
-                                  'cost_public_slider': cost_public_slider, 
-                                  'time_collect_slider': time_collect_slider})
-
-
-widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
-      priceperitem_slider, cost_public_slider, time_collect_slider, out])])
-
+# ## Extract prescribing data
 
 # +
 ### extract 28-day prescribing data for modelling
-import os
-from ebmdatalab import bq
-import pandas as pd
 
 sql = '''
 SELECT
@@ -3148,15 +3073,14 @@ data["percent_28d"] = 100*data['items_28d']/data['total_items']
 data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
 
 data.tail()
+# -
 
+
+# ## Output with widgets to adjust variables
 
 # +
 # ensure tests pass despite conflict with widget output:
 # NBVAL_IGNORE_OUTPUT 
-
-import ipywidgets as widgets
-from IPython.display import display
-from ipywidgets import Layout
 
 prescriptions = data.loc[data["pct"]=="All", "items_28d"].item() 
 priceperitem = data.loc[data["pct"]=="All", "cost_per_item"].item()
@@ -3241,9 +3165,25 @@ out = widgets.interactive_output(f,
 
 widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
       cost_public_slider, time_collect_slider, ccg_selector, out])])
+
+
+# +
+# Display static output
+f("All", 3, 0.9, 0.5, 0.5, 0.5, 11, 10)
 # -
 
 
-# Display static output
-f("All", 3, 0.9, 0.5, 0.5, 0.5, 11, 10)
+# ## Apply model to larger basket of drugs
+# **Note larger basket includes 2/3-per-day drugs so we will infer the proportion 28-day from the smaller basket, per CCG.**
 
+larger_basket = pd.read_csv(os.path.join('..','data','data_cost_model.csv'))
+larger_basket.head() 
+
+
+# +
+lb = larger_basket.copy()
+
+# proportion 28d from small basket for each ccg:
+lb = lb.merge(data[["pct","percent_28d"]], on="pct")
+
+lb.head()
