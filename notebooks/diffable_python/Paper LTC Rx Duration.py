@@ -166,7 +166,8 @@ df_ltc_raw .head(10)
 df_ltc_for_filter = df_ltc_raw.groupby(["chemical", "chemical_code"])["total_items","total_tabs_caps"].sum().reset_index().sort_values("total_tabs_caps", ascending=False)
 df_ltc_for_filter.head()
 
-df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
+if "GITHUB_WORKSPACE" not in os.environ:  ## this 
+    df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
 
 # (shortlist exported for manual filtering)
 
