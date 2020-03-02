@@ -190,7 +190,8 @@ data_cost_prep = df_ltc_raw.merge(df_filtered[['chemical_code', 'ltc_stablish']]
 data_cost_prep.head(2)
 
 data_cost_model = data_cost_prep.loc[(data_cost_prep["ltc_stablish"] == 1.0)]
-data_cost_model.to_csv(os.path.join('..','data','data_cost_model.csv'))
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    data_cost_model.to_csv(os.path.join('..','data','data_cost_model.csv'))
 data_cost_model.head(2)
 
 # ## CCG Variation
