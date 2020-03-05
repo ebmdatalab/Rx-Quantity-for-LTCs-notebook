@@ -75,7 +75,7 @@ df_rx_repeat.describe()
 # There is a maximum of 8400 on a single...... That is 23 years worth of tablets, lets investigate further below.
 
 # +
-
+# NBVAL_IGNORE_OUTPUT
 dfp = df_rx_repeat.copy()
 dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
 
@@ -100,6 +100,7 @@ df_common["proportion_of_qty"] = df_common["total_quantity"]/total*100
 df_common.head(5)
 
 # +
+# NBVAL_IGNORE_OUTPUT
 dfp = df_common.copy()
 dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
 
@@ -122,6 +123,7 @@ print(f"Tablets/capsules for common LTC medicines are most commonly being dispen
 # The Bristol paper assertion that most prescribing is 28 days (just about) is correct based on our basket of common LTC medicines. They recommend three-month presctiptions as being more cost effective. Now let's look at script volume to see what the workload implications might be for our basket of common medicines.
 
 # +
+# NBVAL_IGNORE_OUTPUT
 fig = px.bar(dfp, x='quantity_per_item', y='items')
 fig.update_layout(
     title="Number of Items for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
