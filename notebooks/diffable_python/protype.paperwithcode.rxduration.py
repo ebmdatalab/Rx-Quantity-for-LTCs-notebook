@@ -17,7 +17,7 @@
 
 # ##### <center>This notebook is a work in progress to demonstrate how a traditional academic paper could look with execuatbale code presented alongside. Numbers and discussions presented are still at an early draft phase<center> #####
 
-# <h1><center>Variation in repeat prescription duration for long term conditions: a xxxx study in English NHS primary care.</center></h1>
+# <h1><center>Variation in repeat prescription duration for long term conditions: a cohort study in English NHS primary care.</center></h1>
 # <h2><center>Authors, Authors*</center></h2>
 #
 #
@@ -26,8 +26,27 @@
 # *Corresponding: ben.goldacre@phc.ox.ac.uk
 #
 
-# # Introduction
+# # Abstract
+#
+#     
+# __Background__ In England, 14.2 million people are estimated to have at least two long-term conditions many of whom will routinely receive a prescription medicine to treat or relieve their condition. GPs are given wide discretion on the duration of prescritpions they should issue to those stable on medicines. It has been suggested that it would be preferable to introduce a policy of three monthly prescription duration for all those stable on medicines.
+#
+# __Aim__ Our aims were to assess current durations of repeat prescriptions, assess factors associated with duration of repeat prescriptions and model the cost impact of any change in policy with regards to repeat prescritpion duration.
+#
+# __Methods__ We carried out a retrospective cohort  study using prescribing data in English primary care accompanied by an simple predictive economic model. We report our results alongisde our executable analytical code.
+#
+# __Results__
+# A total of 159,715,336 prescription items [code output 22] were issued for medicines commonly taken once daily for long-term conditions of which 156,349,790 (approx 98%) prescriptions [code output 24] were issued for durations suggestive of one month (45%) , two months (41%) or three months (7.5%). We conservatively estimate that the NHS generate savings of approximately £85million comprised of staff and patient time, wastage and dispensing fees if a policy of three monthly prescriptions is widely implemented. Choice of EHR design is strongly associated with prescription duration.
+#
+# __Conclusion__ The NHS could generate substantial savings by implementing a policy of longer prescription duration for people with long-term conditions. We recommend that the NHS considers this polciy and propose a pragmatic cluster RCT mediated through EHRs.
+#     
+#
+#
+#
+#
 
+# # Introduction
+#
 # In England, 14.2 million people are estimated to have at least two long-term conditions (LTCs),[1] many of whom will routinely receive a prescription medicine to treat or relieve their condition. GP practices in England issue 1.1 billion prescriptions every year,[2] two thirds of which are estimated to be repeat prescriptions, commonly for LTCs.[3] The economic burden involved in the issuing of prescriptions, including the time of doctors and other practice staff, dispensing by pharmacies, and collection by patients, may be affected by the duration for which each prescription is given.
 # <br>
 # <br>
@@ -56,6 +75,9 @@ from ebmdatalab import bq, maps, charts
 import matplotlib.pyplot as plt
 import os
 import warnings; warnings.simplefilter('ignore') ##this is for readability due to a few deprecation warnings - we will fix this and use recommended updated methods
+import ipywidgets as widgets
+from IPython.display import display
+from ipywidgets import Layout
 
 # #### _Data Sources_
 # We extracted data from the OpenPrescribing.net database. This imports openly accessible prescribing data from the large monthly files published by the NHS Business Services Authority which contain data on cost and items prescribed for each month, for every typical general practice and CCG in England since mid-2010.[11]The monthly prescribing datasets contain one row for each different medication and dose, in each prescribing organisation in NHS primary care in England, describing the number of items (i.e. prescriptions issued) and the total cost. These data are sourced from community pharmacy claims data and therefore contain all items that were dispensed. We extracted all available data for standard general practices, excluding other organisations such as prisons and hospitals, according to the NHS Digital dataset of practice characteristics and excluded practices that had not prescribed at least one item per measure. We excluded all other organisations such as prisons and hospitals. We restricted our analysis to a basket of medicines which are commonly prescribed for long term conditions and nearly exclusively used once a day using a prior method for measures of seven days prescribing on OpenPrescribing. It does not include dosage instructions e.g. take two tablets twice a day.[10] Briefly the most commonly prescribed tablets/capsules by chemical substance and sorted by highest volume. Two senior pharmacists reviewed the list and identified the medicines which are nearly exclusively prescribed once daily in their experience to create the basket and it includes the chemicals  atorvastatin, simvastatin, levothyroxine, amlodipine and ramipril. Data on EHRs and in which general practice they are deployed was extracted from a monthly file that is circulated by NHS Digital to interested parties and available on request.[12] 
@@ -64,8 +86,6 @@ import warnings; warnings.simplefilter('ignore') ##this is for readability due t
 #the sql query to generate this data can be read in <filename>
 df_ltc = pd.read_csv(os.path.join('..','data','ltc_qty.csv'))
 
-
-df_ltc.sum()
 
 # _Repeat prescribing durations_
 #
@@ -102,10 +122,6 @@ ccg_total=ccg_total.rename(columns = {'total_quantity':'basket_qty'}).drop(colum
 
 ccg_map =  pd.merge(df_common_ccg,ccg_total, on="pct")  
 ccg_map["proportion_of_basket"] = ccg_map["total_quantity"]/ccg_map["basket_qty"]*100
-ccg_map
-
-df_common_ccg.head()
-
 
 
 df_common_ccg = df_ccg.loc[(df_ccg["quantity_per_item"].isin(lst))]
@@ -119,6 +135,170 @@ df_common_ccg = df_ccg.loc[(df_ccg["quantity_per_item"].isin(lst))]
 #
 # One senior pharmacist issued prescriptions in the EMIS and SystmOne computer systems to a test patient and observed the prompts. We also contacted the vendors of all four EHRs to enquire about their default options for course duration.
 #
+
+# _Assessment of the economic impact of any policy change_
+#
+# We modelled the estimated economic burden that would be relieved by an NHS-wide policy to recommend two- or three-monthly prescriptions for suitable products, assuming that 90% of 28-day courses could be appropriately switched to either 56 or 84 days. 
+#
+# - To estimate savings in dispensing fees we used the current dispensing fee per item dispensed (126p).[13] 
+# - To estimate savings in prescriber time from approving fewer prescriptions, we took the latest staff cost figures for GPs and practice nurses as £2.2 and £0.62 per minute, respectively [14]. We assumed that: prescriptions took on average 30 seconds to approve; 50% of prescriptions were approved by GPs; 50% were under electronic repeat dispensing (eRD) and approved only every 6-12 months, hence excluded from the staff time savings calculation.
+# - To estimate increased wastage from unused medicines, we used previously calculated wastage figures for statins used for secondary prevention: 3.325% days of shorter duration prescriptions (<60 days) versus 3.663% of longer durations [9]. To estimate the cost impact we applied the average cost per item across the basket of prescriptions.
+# - To estimate savings in time for patients, we assumed that on average the public value their time at £11/hr [15] , and that patients spend on average 10 minutes collecting each prescription (including travelling plus waiting time, but accounting for combining the journey with other errands and there sometimes being no wait necessary).
+#
+# We did not include any impact of a change to income from patient contributions to prescriptions, because we expect this to be negligible. The vast majority of prescriptions (89% ) are exempt from charges (for example for over 60s, under 19s, people on low incomes etc); and these exemptions are likely to be commonly applicable in the LTCs we are considering.[16] Crucially, patients eligible to pay for routine prescriptions are likely to already be receiving longer supplies wherever clinically appropriate.
+#
+# We provide a tool at [url or we can embed in this notebook?] where anyone can explore the economic impact, including altering the parameters and selecting any CCG. 
+
+# +
+#Common Variables
+prescriptions = 88410515 # total 28-day prescriptions
+percent_amenable = 0.9 # proportion of prescriptions amenable to change to longer durations 0.5-0.95
+months_supply = 3 # 2-4
+
+
+# Dispensing fees
+# Calculate cost of dispensing 90% of prescriptions in 3-month batches
+def calculate_dispensing_fees(prescriptions, months_supply, percent_amenable):
+    return percent_amenable*1.26*prescriptions/(months_supply)
+
+
+# Staff Cost
+prop_doc = 0.5 # proportion approved by a GP
+t = 0.5 # time taken to approve a repeat prescription (minutes)
+prop_erd = 0.5 # proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
+
+def calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t):
+    cdoc = 2.2 # cost per minute for GP time
+    cnur = 0.62 # cost per minute for nurse time
+    prop_nur = 1-prop_doc # proportion approved by a nurse
+    cpp_doc = cdoc*t*(1-prop_erd) # cost per average prescription (doc)
+    cpp_nur = cnur*t*(1-prop_erd) # cost per average prescription (nur)
+    
+    return prescriptions*((1-percent_amenable)+percent_amenable/months_supply)*((prop_doc*cpp_doc) + (prop_nur*cpp_nur))
+
+
+# Wastage
+priceperitem = 0.8 # average cost per box (28-day supply)
+
+def calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem):
+    return (priceperitem*0.03663*prescriptions*percent_amenable*months_supply) + (priceperitem*0.03325*prescriptions*(1-percent_amenable))
+
+
+#Patient Cost
+cost_public = 1 # cost of public time per minute
+time_collect = 10 # time to collect prescription (minutes) (0-60)
+
+def calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect):
+    return (cost_public*((1-percent_amenable)+(percent_amenable/months_supply))*(time_collect*prescriptions/60))
+
+    
+dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable)    
+staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
+waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
+patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
+# -
+
+df_model_ltc = pd.read_csv(os.path.join("..", "data", "ltc_qty_cost.csv"))
+
+
+# +
+data = df_model_ltc.set_index("pct").sort_index()
+# add a total row
+data = data.append(data.sum().rename("All")).reset_index()
+
+# calculate additional fields
+data["percent_28d"] = 100*data['items_28d']/data['total_items']
+data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
+
+data.tail()
+
+# +
+# ensure tests pass despite conflict with widget output:
+# NBVAL_IGNORE_OUTPUT 
+
+prescriptions = data.loc[data["pct"]=="All", "items_28d"].item() 
+priceperitem = data.loc[data["pct"]=="All", "cost_per_item"].item()
+
+#ccg_selector = widgets.Dropdown(options=data[["pct","items"]].to_numpy().tolist(), value=prescriptions, description='CCG:', disabled=False)
+ccg_selector = widgets.Dropdown(options=data["pct"], value="All", description='CCG:', disabled=False)
+
+# make widget titles fit by setting the style
+style = {'description_width': 'initial'}
+
+
+months_supply_slider = widgets.IntSlider(min=1, max=4, step=1, description='Months supply:', style=style, value=3)
+
+# proportion of prescriptions amenable to change
+percent_amenable_slider = widgets.FloatSlider(min=0.2, max=0.95, step=0.05, description='Proportion amenable:', style=style, value=0.9)
+
+# proportion of prescriptions approved by a GP
+prop_doc_slider = widgets.FloatSlider(min=0.1, max=0.9, step=0.1, description='Proportion GP:', style=style, value=0.5)
+
+# time taken to approve a repeat prescription (minutes)
+time_slider = widgets.FloatSlider(min=0.1, max=2, step=0.1, description='Time per presc (min):', style=style, value=0.5)
+
+# proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
+prop_erd_slider = widgets.FloatSlider(min=0, max=1, step=0.1, description='e-RD proportion:', style=style, value=0.5)
+
+# price per item
+#priceperitem_slider = widgets.FloatSlider(min=0.5, max=2, step=0.1, description='Price per item (£):', style=style, value=0.8)
+
+# cost of public time per minute
+cost_public_slider = widgets.IntSlider(min=5, max=15, step=1, description='Cost of public time (£):', style=style, value=11)
+
+# time to collect prescription (minutes)
+time_collect_slider = widgets.IntSlider(min=0, max=30, step=1, description='Time to collect (min):', style=style, value=10)
+
+    
+def f(ccg_selector, months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
+      cost_public_slider, time_collect_slider):
+    
+    ccg = ccg_selector
+    months_supply = months_supply_slider
+    percent_amenable = percent_amenable_slider
+    prop_doc = prop_doc_slider
+    t = time_slider
+    prop_erd = prop_erd_slider
+    #priceperitem = priceperitem_slider
+    cost_public = cost_public_slider
+    time_collect = time_collect_slider
+    
+    # items and cost per item, using ccg from dropdown
+    prescriptions = data.loc[data["pct"]==ccg, "items_28d"].item() 
+    percent_28d = data.loc[data["pct"]==ccg, "percent_28d"].item() 
+    priceperitem = data.loc[data["pct"]==ccg, "cost_per_item"].item()
+
+    
+    dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable)    
+    staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
+    waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
+    patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
+
+    print(f'Total 28-day prescriptions = {prescriptions:,.0f} \n'
+          f'Percent 1 month (of all 1+2+3 month prescriptions) = {percent_28d:,.0f}% \n'
+          f'Mean price per item = £{priceperitem:,.2f} \n'
+          f'\n'
+          f'Dispensing fees =  £{dispensing_fees/1E6:,.1f} M \n'
+          f'Staff cost =  £{staff_cost/1E6:,.1f} M \n'
+          f'Wasted meds =  £{waste/1E6:,.1f} M \n'
+          f'Patient cost =  £{patient_cost/1E6:,.1f} M \n \n'
+          f'Overall impact: =  £{(staff_cost+ waste+ patient_cost)/1E6:,.1f} M'
+         )
+
+out = widgets.interactive_output(f, 
+                                 {'ccg_selector': ccg_selector,
+                                  'months_supply_slider': months_supply_slider, 
+                                  'percent_amenable_slider': percent_amenable_slider,
+                                  'prop_doc_slider': prop_doc_slider, 
+                                  'time_slider': time_slider, 
+                                  'prop_erd_slider': prop_erd_slider,
+                                  #'priceperitem_slider': priceperitem_slider, 
+                                  'cost_public_slider': cost_public_slider, 
+                                  'time_collect_slider': time_collect_slider})
+
+#widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
+ #    cost_public_slider, time_collect_slider, ccg_selector, out])])
+# -
 
 # _Patient and Public Involvement_ 
 #
@@ -141,17 +321,13 @@ df_common.sum()
 
 # #### Figure 1: _Histogram of all prescribed medicines quantity_ <a id='histogram1'></a>
 
-# +
 dfp = df_rx_repeat.copy()
 dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
-
-
 fig = px.bar(dfp, x='quantity_per_item', y='items')
 fig.update_layout(
     title=" Figure 1: Number of Tabets/Capsules for Commonly Prescribed Medicines")
 fig.update_xaxes(range=[0, 120])
 fig.show()
-# -
 
 # #### Figure 2: _Histogram of all prescribed medicines quantity_ <a id='histogram2'></a>
 
@@ -163,7 +339,6 @@ fig = px.bar(dfp, x='quantity_per_item', y='total_quantity')
 fig.update_layout(
     title="Number of Tabets/Capsules for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
 fig.show()
-
 # get value for percentage dispensed in each of 1/2/3 months prescriptions: 
 #percentage = {}
 #for d in lst:
@@ -190,6 +365,12 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
 # ##### Factors associated with repeat prescribing durations
 # We found EHR sytem in use to be significantly associated with repeat prescribing duration. Listsize, number of patients >65 and deprivation were not show to be associated with durations. CCG membership showed a xx relationship (table 2). This section is made up so far as a placeholder - we need to add in stata code and actually check relationships!
 
+# + language="html"
+# <style>
+# table {float:left}
+# </style>
+# -
+
 # |             |                           | Log regression | 
 # |-------------|---------------------------|----------------|
 # | EHR         | emis |                |   |   |
@@ -202,11 +383,22 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
 #
 # We will insert written descriptions of observations plus responses of the EHR vendors once we have completed.
 
+# #### Assessment of the economic impact of any policy change
+#
+# We estimate that by implementing a policy of three monthly prescriptions there would be a net benefit  to England of £85million comprised of a direct saving of £33million in dispensing fees, £12.3million in staff time, £9.3million in wasted medicines and finally patient time equating to £63million saving.  These savings are based on our best estimates, these may vary by source or local patterns may vary, we therefore have provided and interactive widget to change these estimates.
+#
+
+# Display static output
+f("All", 3, 0.9, 0.5, 0.5, 0.5, 11, 10)
+
+widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_doc_slider, time_slider, prop_erd_slider, 
+  cost_public_slider, time_collect_slider, ccg_selector, out])])
+
 # # Discussion
 #
 # _Summary_
 #
-# Prescribers in primary care supply; 60.4% of prescriptions items (n = 16 212 361) in quantities suggestive of one month's supply; 34.5% of prescription items ( n = 4604721) as two months supply and 4.8% of prescription items (n = 423880) in quantities suggestive of three months supply. We found that dispensing doctor status and the EHR in use in a practice were the most likely predictors of prescription duration. We estimate the current overall economic impact of this to be £193.9million  and that the NHS could reduce the economic impact on patients, staff utilisation and wastage to the tune of £108.4 million by switching 90% of these one month supply to three monthly supplies.
+# Prescribers in primary care supply; 60.4% of prescriptions items (n = 16 212 361) in quantities suggestive of one month's supply; 34.5% of prescription items ( n = 4604721) as two months supply and 4.8% of prescription items (n = 423880) in quantities suggestive of three months supply. We found that dispensing doctor status and the EHR in use in a practice were the most likely predictors of prescription duration. We estimate the current overall economic impact of this to be £85.5million and that the NHS could reduce the economic impact on patients, staff utilisation and wastage with direct savings of £42million million by switching 90% of these one month supply to three monthly supplies.
 #   
 # _Strengths and weaknesses_
 #
@@ -220,9 +412,10 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
 # - Disp doctor and CCG (all DataLab papers on trends and variation are relevant here)
 #
 # _Policy Implications and Interpretation_
-#  - Savings (££ + patient & staff time + reduced environmental impact)
+#  - Savings (££ + patient & staff time + reduced environmental impact - greener NHS)
 #  - Discuss COVID stock issues. Any changes to be managed in Stepwise approach in tandem with evaluation to ensure supply chain robustness
 #  - EHR impact and possibility of using it for cluster RCT by changing defaults
+#  - sharing of analytical code
 #
 # _Future Research_ 
 # - any changes if decided upon need to be evaluated
@@ -232,9 +425,9 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
 #
 #
 
-# +
-# Summary & Conclusion
-# -
+# # Summary & Conclusion
+#
+# The NHS could generate substantial savings by implementing a policy of longer prescription duration for people with long-term conditions. We recommend that the NHS considers this polciy and propose a pragmatic cluster RCT mediated through EHRs. Finally we have demonstrated that it is possible to openly share analytical code alongside a traditional academic publishing written article. We propose all jounrals consider new methods supporting researchers to use their analytical code.
 
 # #### Acknowledgements
 # XX.
