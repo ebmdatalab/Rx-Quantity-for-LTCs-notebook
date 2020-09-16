@@ -36,9 +36,9 @@
 # __Methods__ We carried out a retrospective cohort  study using prescribing data in English primary care accompanied by an simple predictive economic model. We report our results alongisde our executable analytical code.
 #
 # __Results__
-# A total of 159,715,336 prescription items [code output 22] were issued for medicines commonly taken once daily for long-term conditions of which 156,349,790 (approx 98%) prescriptions [code output 24] were issued for durations suggestive of one month (45%) , two months (41%) or three months (7.5%). We conservatively estimate that the NHS generate savings of approximately £85million comprised of staff and patient time, wastage and dispensing fees if a policy of three monthly prescriptions is widely implemented. Choice of EHR design is strongly associated with prescription duration.
+# A total of 159,715,336 prescription items were issued for medicines commonly taken once daily for long-term conditions of which 156,349,790 (approx 98%) prescriptions were issued for durations suggestive of one month (45%) , two months (41%) or three months (7.5%). We conservatively estimate that the NHS could generate savings of approximately £85million comprised of staff and patient time, wastage and dispensing fees if a policy of three monthly prescriptions is widely implemented. Choice of EHR design is strongly associated with prescription duration.
 #
-# __Conclusion__ The NHS could generate substantial savings by implementing a policy of longer prescription duration for people with long-term conditions. We recommend that the NHS considers this polciy and propose a pragmatic cluster RCT mediated through EHRs.
+# __Conclusion__ The NHS could generate substantial savings by implementing a policy of longer prescription duration for people with long-term conditions. We recommend that the NHS considers this policy and propose a pragmatic cluster randomised controlled trial mediated through EHRs.
 #     
 #
 #
@@ -52,7 +52,7 @@
 # <br>
 # The NHS does not issue national guidance on the duration of prescriptions and doctors are recommended to select a “clinically appropriate” duration.[4] Local guidance may recommend one-month prescriptions, to minimise wastage from unused medications. However, researchers in the University of Bristol have recommended that NHS England, the national body responsible for all NHS care and organisations, should recommend three-monthly prescriptions for LTCs rather than shorter durations.[5] Longer duration prescriptions are likely to increase adherence with medication, reduce inconvenience for patients, and save costs in terms of staff time, which is likely to offset any increased waste from unused medications.[6–9] 
 # <br><br>
-# Our [OpenPrescribing.net](https://openprescribing.net/) service is a publicly funded and openly accessible explorer for NHS primary care prescribing data, launched in 2015, with 135,000 unique users in the past year including doctors, pharmacists and patients. It supports complex bespoke data queries on all English GP prescriptions dispensed in primary care, and displays numerous predefined standard measures for safety, cost, and effectiveness for every practice in England. We propose a measure to display prescription duration for a subset of products across the complete population of GP prescriptions.[10] 
+# Our [OpenPrescribing.net](https://openprescribing.net/) service is a publicly funded and openly accessible explorer for NHS primary care prescribing data, launched in 2015, with 140,000 unique users in the past year including doctors, pharmacists and patients. It supports complex bespoke data queries on all English GP prescriptions dispensed in primary care, and displays numerous predefined standard measures for safety, cost, and effectiveness for every practice in England. We have previously proposed a measure to display prescription duration for one week for a subset of products across the complete population of GP prescriptions.[10] 
 # <br><br>
 # We therefore set out to: describe the current repeat prescription durations for long term conditions, describe variation between CCGs, investigate factors associated with repeat prescribing duration and provide a conservative estimate of the economic impact of any policy changes with regards to repeat prescription duration in England.
 #
@@ -64,7 +64,7 @@
 # data from all English NHS general practices and CCG, complemented with data on EHR deployment from NHS Digital; user-testing of two commonly used EHRs by a senior pharmacist and estimation of economic impacts resulting from a change in practice.
 #
 # #### _Software and Reproducibility_
-# This paper is a novel interactive paper presented alongside executable code. Methods are described in text alongside execuatable code. Data, as well as all code for data management and analysis is also archived in GitHub.[17] Data management is performed using Python and Google BigQuery, with analysis carried out using Stata 13.2 / Python. The following cell details the Python libraries used in addition to the [core environment template](https://github.com/ebmdatalab/datalab-notebook-template) deveopled by The DataLab and further information on requirments and dependencies can be obtained in `requirements.in`. 
+# This paper is a novel interactive paper presented alongside executable code. Methods are described in text alongside execuatable code. Data, as well as all code for data management and analysis is also archived in GitHub.[17] Data management is performed using Python and Google BigQuery, with analysis carried out using Stata 13.2 / Python. The following cell, details the Python libraries used in addition to the [core environment template](https://github.com/ebmdatalab/datalab-notebook-template) deveopled by The DataLab and further information on requirments and dependencies can be obtained in `requirements.in`. 
 #
 #
 
@@ -80,7 +80,7 @@ from IPython.display import display
 from ipywidgets import Layout
 
 # #### _Data Sources_
-# We extracted data from the OpenPrescribing.net database. This imports openly accessible prescribing data from the large monthly files published by the NHS Business Services Authority which contain data on cost and items prescribed for each month, for every typical general practice and CCG in England since mid-2010.[11]The monthly prescribing datasets contain one row for each different medication and dose, in each prescribing organisation in NHS primary care in England, describing the number of items (i.e. prescriptions issued) and the total cost. These data are sourced from community pharmacy claims data and therefore contain all items that were dispensed. We extracted all available data for standard general practices, excluding other organisations such as prisons and hospitals, according to the NHS Digital dataset of practice characteristics and excluded practices that had not prescribed at least one item per measure. We excluded all other organisations such as prisons and hospitals. We restricted our analysis to a basket of medicines which are commonly prescribed for long term conditions and nearly exclusively used once a day using a prior method for measures of seven days prescribing on OpenPrescribing. It does not include dosage instructions e.g. take two tablets twice a day.[10] Briefly the most commonly prescribed tablets/capsules by chemical substance and sorted by highest volume. Two senior pharmacists reviewed the list and identified the medicines which are nearly exclusively prescribed once daily in their experience to create the basket and it includes the chemicals  atorvastatin, simvastatin, levothyroxine, amlodipine and ramipril. Data on EHRs and in which general practice they are deployed was extracted from a monthly file that is circulated by NHS Digital to interested parties and available on request.[12] 
+# We extracted data from the OpenPrescribing.net database between Decemeber 2018 and November 2019. This imports openly accessible prescribing data from the large monthly files published by the NHS Business Services Authority which contain data on cost and items prescribed for each month, for every typical general practice and CCG in England since mid-2010.[11]The monthly prescribing datasets contain one row for each different medication and dose, in each prescribing organisation in NHS primary care in England, describing the number of items (i.e. prescriptions issued) and the total cost. These data are sourced from community pharmacy claims data and therefore contain all items that were dispensed. We extracted all available data for standard general practices, excluding other organisations such as prisons and hospitals, according to the NHS Digital dataset of practice characteristics and excluded practices that had not prescribed at least one item per measure. We excluded all other organisations such as prisons and hospitals. We restricted our analysis to a basket of medicines which are commonly prescribed for long term conditions and nearly exclusively used once a day using a prior method for measures of seven days prescribing on OpenPrescribing. English prescribing data does not include dosage instructions e.g. take two tablets twice a day.[10] Briefly the most commonly prescribed tablets/capsules by chemical substance and sorted by highest volume. Two senior pharmacists reviewed the list and identified the medicines which are nearly exclusively prescribed once daily in their experience to create the basket and it includes the chemicals  atorvastatin, simvastatin, levothyroxine, amlodipine and ramipril. Data on EHRs and in which general practice they are deployed was extracted from a monthly file that is circulated by NHS Digital to interested parties and available on request.[12] 
 #
 
 #the sql query to generate this data can be read in <filename>
@@ -89,7 +89,7 @@ df_ltc = pd.read_csv(os.path.join('..','data','ltc_qty.csv'))
 
 # _Repeat prescribing durations_
 #
-# We measured the quantity of tablets or capsules issued for medicines within our definition and plotted them on a histogram ([jump to](#histogram1)). We identified prescriptions likely to have been issued for one month (28 tablets/capsules), two months  (56 tablets/capsules) or three months  (84 tablets/capsules)  ([jump to](#commonqty)).
+# We measured the quantity of tablets or capsules issued for medicines within our definition and plotted them on a histogram ([jump to](#histogram1)). We identified prescriptions likely to have been issued for one month (28 tablets/capsules), two months  (56 tablets/capsules) or three months  (84 tablets/capsules)  ([jump to](#table1)).
 #
 
 df_rx_repeat = df_ltc.copy()
@@ -130,6 +130,10 @@ df_common_ccg = df_ccg.loc[(df_ccg["quantity_per_item"].isin(lst))]
 #
 # We examined factors associated prescribing one month durations versus longer durations of two or three months combined. We selected variables from data available on individual CCGs and practices from publicly available data that have previously been shown to be associated with variation in prescribing. These variables were: proportion of GP registered list who are over 65, the proportion of patients with a long term health condition[ref], if the practice was a dispensing practice and the primary electronic health record (EHR) used in the practice. We explored the influence of CCG membership on individual practices  by xyz.
 #
+
+# +
+#insert stata code here
+# -
 
 # _EHR System User-Interface Evaluation_
 #
@@ -210,7 +214,6 @@ data = data.append(data.sum().rename("All")).reset_index()
 data["percent_28d"] = 100*data['items_28d']/data['total_items']
 data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
 
-data.tail()
 
 # +
 # ensure tests pass despite conflict with widget output:
@@ -302,12 +305,12 @@ out = widgets.interactive_output(f,
 
 # _Patient and Public Involvement_ 
 #
-# Our website OpenPrescribing.net, is an openly accessible data explorer for all NHS England primary care prescribing data, which receives a large volume of user feedback from professionals, patients and the public. This feedback is used to refine and prioritise our informatics tools and research activities. Patients were not formally involved in developing this specific study design
+# Our website [OpenPrescribing.net](https://openprescribing.net/), is an openly accessible data explorer for all NHS England primary care prescribing data, which receives a large volume of user feedback from professionals, patients and the public. This feedback is used to refine and prioritise our informatics tools and research activities. Patients were not formally involved in developing this specific study design
 #
 
 # # Results
 #
-# In our study period 159,715,336 prescription items [code output 22] were issued for medicines commonly taken once daily for long-term conditions of which 156,349,790 (approx 98%) prescriptions [code output 24] were issued for durations suggestive of one month (45%) , two months (41%) or three months (7.5%) [Table 1](#table1). Quantities of tablets or capsules prescribed on a single prescription ranged from 1 tablets/capsules to 8400 ([figure 1](#histogram1)) whilst [figure 2](#histogram2) shows the overwhelming majority of prescriptions are issued for one or two months.  There is substanial geographic variation with an obvious geographic clustering (dn-need better word) from east to west with one and two month prescriptions ([figure 3](#ccgmap)).
+# In our 12 month study period 159,715,336 prescription items [code output 16] were issued for medicines commonly taken once daily for long-term conditions of which 156,349,790 (approx 98%) prescriptions [code output 17] were issued for durations suggestive of one month (45%) , two months (41%) or three months (7.5%) [Table 1](#table1). Quantities of tablets or capsules prescribed on a single prescription ranged from 1 tablets/capsules to 8400 ([figure 1](#histogram1)) whilst [figure 2](#histogram2) shows the overwhelming majority of prescriptions are issued for one or two months.  There is substanial geographic variation with an obvious geographic clustering (dn-need better word) from east to west with one and two month prescriptions ([figure 3](#ccgmap)).
 #
 #
 
@@ -398,7 +401,7 @@ widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_
 #
 # _Summary_
 #
-# Prescribers in primary care supply; 60.4% of prescriptions items (n = 16 212 361) in quantities suggestive of one month's supply; 34.5% of prescription items ( n = 4604721) as two months supply and 4.8% of prescription items (n = 423880) in quantities suggestive of three months supply. We found that dispensing doctor status and the EHR in use in a practice were the most likely predictors of prescription duration. We estimate the current overall economic impact of this to be £85.5million and that the NHS could reduce the economic impact on patients, staff utilisation and wastage with direct savings of £42million million by switching 90% of these one month supply to three monthly supplies.
+# In our 12 month study period prescribers in primary care supply; 45% of prescriptions items (n = 88 410 515) in quantities suggestive of one month's supply; 41% of prescription items (n = 39 714 191) as two months supply and 4.8% of prescription items (n = 4 834 340) in quantities suggestive of three months supply. We found that dispensing doctor status and the EHR in use in a practice were the most likely predictors of prescription duration. We estimate the current overall economic impact of this to be £85.5million and that the NHS could reduce the economic impact on patients, staff utilisation and wastage with direct savings of £42million million by switching 90% of these one month supply to three monthly supplies.
 #   
 # _Strengths and weaknesses_
 #
