@@ -63,50 +63,96 @@ GROUP BY
     '''
 
 df_ltc = bq.cached_read(sql, csv_path=os.path.join('..','data','ltc_qty.csv'))
-df_ltc.head(10)
+df_ltc.head()
 # -
 
+# calculate total quantity for each QpI
 df_rx_repeat = df_ltc.copy()
 df_rx_repeat["total_quantity"] = df_rx_repeat["quantity_per_item"]*df_rx_repeat["items"] 
 df_rx_repeat.tail(5)
+
+# ### Data summary
+
+# +
+total_items = df_ltc["items"].sum()
+display(f"Total prescriptions (including all durations): {total_items/1E6} million")
+
+# number of CCGs
+ccg_count = df_ltc["pct"].nunique()
+display(f"Total CCGs: {ccg_count}")
+# -
 
 df_rx_repeat.describe()
 
 # There is a maximum of 8400 on a single...... That is 23 years worth of tablets, lets investigate further below.
 
+# ### List of most common prescription durations
+
+# inspect most common quantity_per_item values
+top10qpi = df_rx_repeat.groupby('quantity_per_item')['items'].sum().sort_values(ascending=False).head(10).reset_index()
+display(top10qpi)
+
+# ### Histogram of most common prescription durations
+
 # +
 # NBVAL_IGNORE_OUTPUT
-dfp = df_rx_repeat.copy()
-dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
+dfp = top10qpi.sort_values(by='quantity_per_item')
+dfp['labels'] = (dfp["items"]/1000000).round(1).astype(str)+"M"
 
-fig = px.bar(dfp, x='quantity_per_item', y='items')
-fig.update_xaxes(range=[0, 120])
+fig = px.bar(dfp, x='quantity_per_item', y='items', 
+             text='labels',
+             width=800, height=500)
+#fig.update_xaxes(range=[0, 120])
+fig.update_xaxes(type='category')
 
-
+plt.savefig("histogram_items_top10.png", format="png")
 fig.show()
 # -
 
-###here we make a list of durations we want to affect for later filtering
-lst = [7,28,56,84]
+# ### Table displaying quantity and items for 1/2/3-month prescriptions only
+
+### here we make a list of durations of interest for filtering
+lst = [28,56,84]
 
 # +
 df_common = df_rx_repeat.loc[(df_rx_repeat["quantity_per_item"].isin(lst))]
 
-print(df_common)                                                             
+total_items = df_common["items"].sum()
+display(f"Total prescriptions after limiting to 28, 56 and 84-day durations: {total_items/1E6} million")
+
+table1 = df_common.copy().groupby('quantity_per_item').sum().reset_index()
+total = table1["total_quantity"].sum()
+table1["proportion_of_qty"] = (table1["total_quantity"]/total).round(3)*100
+display(table1)      
+
+table1["proportion_of_qty"] = (table1["total_quantity"]/total).round(3)*100
+
 # -
 
-total = df_common["total_quantity"].sum()
-df_common["proportion_of_qty"] = df_common["total_quantity"]/total*100
+# ### Calculate proportions dispensed in each quantity
+
+total_qty = df_common["total_quantity"].sum()
+display(f"Total tablets/capsules after limiting to 28, 56 and 84-day durations: {total_qty/1E9} billion")
+df_common["proportion_of_qty"] = df_common["total_quantity"]/total_qty*100
 df_common.head(5)
+
+# The Bristol paper assertion that most prescribing is 28 days (just about) is correct based on our basket of common LTC medicines. They recommend three-month presctiptions as being more cost effective. Now let's look at script volume to see what the workload implications might be for our basket of common medicines.
+
+# ### Histogram displaying number of tablets/capsules for 1/2/3-month prescriptions only
 
 # +
 # NBVAL_IGNORE_OUTPUT
 dfp = df_common.copy()
 dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
+dfp['labels'] = (dfp["total_quantity"]/1E9).round(1).astype(str)+" B"
 
-fig = px.bar(dfp, x='quantity_per_item', y='total_quantity')
+fig = px.bar(dfp, x='quantity_per_item', y='total_quantity',text='labels',
+             width=800, height=500)
+fig.update_xaxes(type='category')
 fig.update_layout(
-    title="Number of Tabets/Capsules for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
+    title=f"Number of Tabets/Capsules for Commonly Prescribed Quantities") # for Commonly Prescribed Medicines")
+
+plt.savefig("histogram_quantity.png", format="png")
 fig.show()
 
 # get value for percentage dispensed in each of 1/2/3 months prescriptions: 
@@ -118,20 +164,23 @@ print(f"Tablets/capsules for common LTC medicines are most commonly being dispen
       f"with approximately {percentage[56]:.1f}% being dispensed on two-monthly scripts.",
       f"Only {percentage[84]:.1f}% of these common medicines are being supplied on three-monthly prescriptions." )
 
-# -
-
-# The Bristol paper assertion that most prescribing is 28 days (just about) is correct based on our basket of common LTC medicines. They recommend three-month presctiptions as being more cost effective. Now let's look at script volume to see what the workload implications might be for our basket of common medicines.
 
 # +
 # NBVAL_IGNORE_OUTPUT
-fig = px.bar(dfp, x='quantity_per_item', y='items')
+dfp['items_labels'] = (dfp["items"]/1000000).round(1).astype(str)+"M"
+fig = px.bar(dfp, x='quantity_per_item', y='items',text='items_labels',
+             width=800, height=500)
+fig.update_xaxes(type='category')
 fig.update_layout(
     title="Number of Items for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
+plt.savefig("histogram_items_28_56_84.png", format="png")
 fig.show()
 
 items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/1E6
 print(f'There are {items_28d:,.1f}M one-month scripts for our basket of common medicines. There will be a substantial number of prescriptions that need amending.')
 # -
+
+# ## Extrapolate to 2/3 times daily medicines
 
 # This basket is based on once daily medicines - however now we know the proportions we can include twice/thrice daily medicines for medicines that are for long-term conditions which relatively stable dosing patterns. The twice/thrice is quantity repeat should be standardised around the same amount. To do this let us review the top 50 medicines dispensed last year based on tab/caps volume. 
 
@@ -231,6 +280,8 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
         separate_london=False,
         plot_options={'vmax': 100}
     )
+    
+    plt.savefig("ccg_maps.png", format="png")
     plt.show()
 
 # My impression is that the 28 day supply map looks similar to SystmOne v EMIS Web [map of deployment](https://github.com/ebmdatalab/jupyter-notebooks/blob/master/General%20Practice%20EHR%20Deployment/EHR%20Deployment.ipynb)
