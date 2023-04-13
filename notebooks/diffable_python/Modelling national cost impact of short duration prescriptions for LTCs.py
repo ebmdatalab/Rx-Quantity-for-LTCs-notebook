@@ -2783,7 +2783,7 @@
 #       version_minor: 0
 # ---
 
-# ## Aim: To model the cost impact of dispensing one month rather than 2 or 3 months
+# ## Aim: To model the cost impact of dispensing 2 or 3 months rather than single months
 #
 # We examined the cost of a policy switch to recommend two or three monthly prescriptions across the NHS where there is no clinical rationale for issuing shorter durations. 
 #
@@ -2792,7 +2792,7 @@ import os
 from ebmdatalab import bq
 import pandas as pd
 import ipywidgets as widgets
-from IPython.display import display
+from IPython.display import display, Markdown
 from ipywidgets import Layout
 
 # # \*** Scroll down to "Model" for the fully-formed model. 
@@ -2811,6 +2811,15 @@ from ipywidgets import Layout
 # - Plus 2% of the cost per prescription (cost per day multiplied by prescription length) for prescriptions over £100 \*see below
 #
 # (https://psnc.org.uk/dispensing-supply/endorsement/fees-allowances/) 
+#
+# *Fees for expensive prescriptions (over £100)*
+#
+# Not a consideration for the drugs we are looking at, all of which are available generically:
+# - Ramipril £2-5 /pack https://openprescribing.net/tariff/?codes=0205051R0AAADAD&codes=0205051R0AAANAN&codes=0205051R0AAAAAA&codes=0205051R0AAAKAK&codes=0205051R0AAABAB&codes=0205051R0AAALAL&codes=0205051R0AAACAC&codes=0205051R0AAAMAM
+# - Atorvastatin <£2/pack https://openprescribing.net/tariff/?codes=0212000B0AAAAAA&codes=0212000B0AAABAB&codes=0212000B0AAACAC&codes=0212000B0AAADAD
+# - Simvastatin <£2/pack https://openprescribing.net/tariff/?codes=0212000Y0AAAAAA&codes=0212000Y0AAABAB&codes=0212000Y0AAADAD&codes=0212000Y0AAAHAH
+# - Levothyroxine max £15/pack during 18-19 https://openprescribing.net/tariff/?codes=0602010V0AABZBZ&codes=0602010V0AAGHGH&codes=0602010V0AABWBW&codes=0602010V0AABXBX&codes=0602010V0AABYBY
+# - Amlodipine <£2/pack https://openprescribing.net/tariff/?codes=0206020A0AAABAB&codes=0206020A0AAAAAA
 #
 # **2. Prescriber time**
 #
@@ -2841,25 +2850,29 @@ from ipywidgets import Layout
 #   compared to 3.663% of longer duration (>=60 days) prescriptions. 
 #
 # **4. Patient time and expenses**
+# - Time required to travel to pharmacy / GP?
+# - DIfferences for dispensing practices (>1.6m)?
+# - Time taken to collect prescription? Under electronic prescribing prescriptions may already be ready to collect when the patient arrives. 
+#
+# - Sliding scale might be the best way! 
+# - The majority of population live within 20 mins walk of a pharmacy (few years old maybe)
 #
 # **5. Income generation**
+# - Patients eligible to pay for prescriptions pay a fixed amount per prescription which contributes towards the total prescribing bill. For each prescription dispensed for 84 rather than 28 days, income would be reduced by 2/3.
 #
-# **6. Errors**
+# - However, the majority of prescriptions (90%?) are exempt from charges, for example over 60s, under 19s, people on low incomes etc. Those eligible to pay who collect a lot of medications can have their total capped. 
+#
+# - Therefore, for the medications we are considering we may expect that >95% of the prescriptions (2x statins, largely over-60s) are not paid for by patients. 
+#
+# - Crucially, where patients pay for routine prescriptions, it is likely that they are already given 84 days supply to reduce the cost burden on them.
+#
+# - Therefore, we would expect a very small decrease in income from changing patients from 28 day prescriptions to longer durations.
 #
 # **Refs**
 # - *Doble B, Payne R, Harshfield A, Wilson EC. BMJ Open. 2017;7(12):e019382.*
 # - *Curtis L , Burns A . Unit Costs of Health and Social Care. Canterbury, UK: Personal Social Services Research Unit, The University of Kent, 2015*
 
-# **Fees for expensive prescriptions (over £100)**
-#
-# Not a consideration for the drugs we are looking at, all of which are available generically:
-# - Ramipril £2-5 /pack https://openprescribing.net/tariff/?codes=0205051R0AAADAD&codes=0205051R0AAANAN&codes=0205051R0AAAAAA&codes=0205051R0AAAKAK&codes=0205051R0AAABAB&codes=0205051R0AAALAL&codes=0205051R0AAACAC&codes=0205051R0AAAMAM
-# - Atorvastatin <£2/pack https://openprescribing.net/tariff/?codes=0212000B0AAAAAA&codes=0212000B0AAABAB&codes=0212000B0AAACAC&codes=0212000B0AAADAD
-# - Simvastatin <£2/pack https://openprescribing.net/tariff/?codes=0212000Y0AAAAAA&codes=0212000Y0AAABAB&codes=0212000Y0AAADAD&codes=0212000Y0AAAHAH
-# - Levothyroxine max £15/pack during 18-19 https://openprescribing.net/tariff/?codes=0602010V0AABZBZ&codes=0602010V0AAGHGH&codes=0602010V0AABWBW&codes=0602010V0AABXBX&codes=0602010V0AABYBY
-# - Amlodipine <£2/pack https://openprescribing.net/tariff/?codes=0206020A0AAABAB&codes=0206020A0AAAAAA
-
-# **Example**
+# **Example from previous literature**
 #
 # > **Three-Month Versus 28-Day Prescribing of Antihypertensives**
 #
@@ -2867,46 +2880,50 @@ from ipywidgets import Layout
 # In both cases we first added in the transaction and drug wastage costs (Table 3). 
 #
 # > For the 3-month arm this equated to an extra 
-# £21.01 per annum [= dispensing fees (£0.90) + prescriber time (£3.77) + wastage costs (£0.51) × (365/90)], 
+# £21.01 per annum [= **dispensing fees** (£0.90) + **prescriber time** (£3.77) + **wastage costs** (£0.51) × (365/90)], 
 #
 # > and in the 28-day arm, 
 # £61.68 [= dispensing fees (£0.90) + prescriber time (£3.76) + wastage costs (£0.07) × (365/28)].
 #
 # From Martin A, Payne R, Wilson EC. Appl Health Econ Health Policy 2018;16:317–30. doi:10.1007/s40258-018-0383-9
 
-# # Calculations
+# ## Load summary prescribing data
+
+df = pd.read_csv(os.path.join('..','data','table1_qpi_summary.csv'))
+items = df.set_index('quantity_per_item')['items']
+display(items)
+
+# ## We assume that approx 10% of one-month prescriptions are appropriate (e.g. newly initiated patients). 
+
+# # Calculations - formation of model
 
 # ## 1. Dispensing fees
 
 # - 126p - cost per item dispensed (not divided across items on same prescription form)
-# - Currently 60% of our selected items are dispensed in 28-day packs.
 #
 
-print ("total dispensing cost for 1, 4, 8 or 12 week supplies: £%4.1f M"%(1.26*(2674229+16212361+4604721+423880)/1E6))
-print ("total dispensing cost for 4-week / one month prescriptions: £%4.1f M"%(1.26*16212361/1E6))
-
 # +
-# We assume that approx 10% of one-month prescriptions are appropriate (e.g. newly initiated patients). 
+dispensing = 1.26
 
-# Calculate cost of dispensing 90% of prescriptions in 3-month batches
-n=0.9*1.26*16212361/3
+dispensing_28 = dispensing*items[28]
 
-print ("potential reduction in cost if 90 percent one-month prescriptions were 3-months: £%4.1f M"%(n/1E6))
+display(Markdown(f"Current total dispensing cost for all 28-day supplies: **£{dispensing_28/1E6:.1f} M**"))
+
+# Calculate cost of dispensing 90% of 28-day prescriptions in 3-month batches:
+n=0.9*dispensing_28/3
+
+display(Markdown(
+    f"Potential reduction in cost if 90% one-month prescriptions were 3-months: **£{n/1E6:.1f} M** ({100*n/dispensing_28:.1f}% of total 28-day dispensing fees)"
+    ))
 # -
 
 # ## 2. Prescriber time
 
 # +
-#Latest GP/nurse overall cost figures from Curtis et al 2019:
-
-#GP £132/hr (£2.20/min)
-#Nurse £37/hr (£0.62/min)
-
 cdoc = 2.2 # cost per minute for GP time
 cnur = 0.62 # cost per minute for nurse time
 
 # note the values for the following variables are selected arbitrarily
-
 prop_doc = 0.5 # proportion approved by a GP
 prop_nur = 1-prop_doc # proportion approved by a nurse
 
@@ -2916,82 +2933,75 @@ prop_erd = 0.5 # proportion of prescriptions on electronic repeat dispensing (as
 cpp_doc = cdoc*t*(1-prop_erd) # cost per average prescription (doc)
 cpp_nur = cnur*t*(1-prop_erd) # cost per average prescription (nur)
 
+approval = (prop_doc*cpp_doc) + (prop_nur*cpp_nur)
+approval_28 = items[28]*approval # cost to approve all 28-day prescriptions
 
-print ("£{:,.0f}".format(16212361*((prop_doc*cpp_doc) + (prop_nur*cpp_nur))), " cost to approve all 28-day prescriptions")
-print ("£{:,.0f}".format(16212361*(0.1+0.9/3)*((prop_doc*cpp_doc) + (prop_nur*cpp_nur))), " cost to approve if 90% 28-day prescriptions were 84-days")
+display(Markdown(f"Current total estimated approval cost for all 28-day supplies: **£{approval_28/1E6:.1f} M**"),
+       Markdown(f"Potential reduction in cost if 90% were 84-days: **£{(0.9*approval_28/3)/1E6:.1f} M** ({100*(0.9*approval_28/3)/approval_28:.1f}% of total 28-day approval fees)"
+    ))
 # -
 
 # ## 3. Wastage
 
 # +
-# For statins (secondary prevention Doble et al found that 3.325% days of shorter duration (\<60 days) prescription supplies
-# were wasted, compared to 3.663% of longer duration  (\>=60 days) prescriptions. 
+waste_s = 0.03325 # 3.325% days wasted of shorter duration (\<60 days) prescription supplies
+waste_l = 0.03663 # 3.663% of longer duration  (\>=60 days) prescriptions. 
 # [Doble et al 2017]
 
-# Atorvastatin 20mg averaged around 80p per 28-tablet pack in 2018-19 (eyeballed)
+display(Markdown("#### Example: Atorvastatin (For price estimate, 20mg tabs averaged around 80p per 28-tablet pack in 2018-19)"))
 p = 0.8
-print ("£%8.5f"%(p*0.03325), " (3.325%) wasted per 28-day supply")
-print ("£%8.5f"%(3*p*0.03663), " (3.663%) wasted per 84-day supply")
-# -
+print ("£%8.5f"%(p*waste_s), " (3.325%) wasted per 28-day supply")
+print ("£%8.5f"%(3*p*waste_l), " (3.663%) wasted per 84-day supply")
 
-# Assuming this scales up to all of our 5 prescriptions...
-print ("£{:,.0f}".format(p*0.03325*16212361), " (3.325%) wasted of all 28-day supplies")
-print ("£{:,.0f}".format(p*0.03663*16212361*3), " (3.663%) wasted if all 28-day supplies were 84-day")
-print ("£{:,.0f}".format((p*0.03663*16212361*3*0.9) + (p*0.03325*16212361*0.1)), " wasted if 90% of all 28-day supplies were 84-day")
+# Assuming this scales up to all of our 5 medicines...
+display(Markdown("#### Scaling up using 80p per item estimate"))
+
+waste_28 = p*items[28]*waste_s
+
+print ("£{:,.2f}".format(waste_28/1E6), "M (3.325%) estimated current wastage of all 28-day supplies")
+print ("£{:,.2f}".format((p*waste_l*items[28]*3*0.9)/1E6 + (p*waste_s*items[28]*0.1)/1E6), "M wasted if 90% of all 28-day supplies were 84-day")
+# -
 
 # ## 4. Patient time and expenses
 
-# - Time required to travel to pharmacy / GP?
-# - DIfferences for dispensing practices (>1.6m)?
-# - Time taken to collect prescription? Under electronic prescribing prescriptions may already be ready to collect when the patient arrives. 
-#
-#
-# - Sliding scale might be the best way! 
-# - The majority of population live within 20 mins walk of a pharmacy (few years old maybe)
-
 # +
 # Conservatively assume 10 mins per prescription (a low estimate to account for most people going to the pharmacy while nearby)
-t = 10
+t = 10/60 # hours per prescription
+print ("{:,.1f}".format((t*12)), " estimated hours per patient per year on 28-day supplies")
+print ("{:,.1f}".format((t*12/3)), " estimated hours per patient per year on 84-day supplies")
 
-print ("{:,.0f}".format(t*16212361/60), " total patient hours to collect all 28-day supplies")
-print ("{:,.0f}".format(t*16212361/60/3), " total patient hours if all 28-day supplies were 84 days")
-print ("{:,.0f}".format(((0.1)+(0.9/3))*(t*16212361/60)), " total patient hours if 90% 28-day supplies were 84 days")
-print ("{:,.1f}".format((t*12/60)), " hours per patient per year on 28-day supplies")
-print ("{:,.1f}".format((t*12/60/3)), " hours per patient per year on 84-day supplies")
+cost_public = 11 # cost of public time per hour
+total_time_28 = t*items[28]
+total_time_switch = ((0.1)+(0.9/3))*total_time_28
+display(Markdown (f"{total_time_28/1E6:,.0f} M estimated total patient hours to collect all 28-day supplies (**£{cost_public*total_time_28/1E6:.1f}M** at £{cost_public}/h)"),
+        Markdown (f"{total_time_switch/1E6:,.0f} M total patient hours if 90% 28-day supplies were 84 days (**£{cost_public*total_time_switch/1E6:.1f}M** at £{cost_public}/h)"))
 
 
-# +
-# IFS should have an estimate somewhere for the cost of public time... 
 # -
 
-# ## 5. Income generation
-
-# Patients eligible to pay for prescriptions pay a fixed amount per prescription which contributes towards the total prescribing bill. For each prescription dispensed for 84 rather than 28 days, income would be reduced by 2/3.
-#
-# However, the majority of prescriptions (90%?) are exempt from charges, for example over 60s, under 19s, people on low incomes etc. Those eligible to pay who collect a lot of medications can have their total capped. 
-#
-# Therefore, for the medications we are considering we may expect that >95% of the prescriptions (2x statins, largely over-60s) are not paid for by patients. 
-#
-# Crucially, where patients pay for routine prescriptions, it is likely that they are already given 84 days supply to reduce the cost burden on them.
-#
-# Therefore, we would expect a very small decrease in income from changing patients from 28 day prescriptions to longer durations.
 
 # # Model
+#  This calculates the total costs for 28-day prescriptions assuming X% are converted to 2/3/4 month supplies.
+#  (It does not add on the cost for existing 56 and 84 day supplies)
 
 # +
-#Common Variables
-prescriptions = 16212361 # total 28-day prescriptions
+#### Common Variables
+prescriptions = items[28] # total 28-day prescriptions
 percent_amenable = 0.9 # proportion of prescriptions amenable to change to longer durations 0.5-0.95
 months_supply = 3 # 2-4
 
 
-# Dispensing fees
+##### Dispensing fees
+dispensing = 1.26
 # Calculate cost of dispensing 90% of prescriptions in 3-month batches
-def calculate_dispensing_fees(prescriptions, months_supply, percent_amenable):
-    return percent_amenable*1.26*prescriptions/(months_supply)
+
+def calculate_dispensing_fees(prescriptions, months_supply, percent_amenable, dispensing):
+    return prescriptions* (# no of items
+           dispensing) * ( # cost multiplier
+           (1-percent_amenable)+(percent_amenable/months_supply)) # adjusted number of items
 
 
-# Staff Cost
+##### Staff Cost
 prop_doc = 0.5 # proportion approved by a GP
 t = 0.5 # time taken to approve a repeat prescription (minutes)
 prop_erd = 0.5 # proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
@@ -3003,32 +3013,74 @@ def calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_do
     cpp_doc = cdoc*t*(1-prop_erd) # cost per average prescription (doc)
     cpp_nur = cnur*t*(1-prop_erd) # cost per average prescription (nur)
     
-    return prescriptions*((1-percent_amenable)+percent_amenable/months_supply)*((prop_doc*cpp_doc) + (prop_nur*cpp_nur))
+    return prescriptions*( # no of items
+           prop_doc*cpp_doc + prop_nur*cpp_nur)*( # cost multiplier
+           (1-percent_amenable)+(percent_amenable/months_supply)) # adjusted number of items
 
 
-# Wastage
+##### Wastage
 priceperitem = 0.8 # average cost per box (28-day supply)
 
 def calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem):
-    return (priceperitem*0.03663*prescriptions*percent_amenable*months_supply) + (priceperitem*0.03325*prescriptions*(1-percent_amenable))
+    waste_s = 0.03325
+    waste_l = 0.03663
+    return prescriptions*(   # no of items
+            priceperitem)*(  # cost multiplier
+                (waste_l*percent_amenable*months_supply) + (# waste for longer prescriptions 
+                # note here we multiply by months_supply rather than divide as the amount of product subject to potential waste will increase with longer duration
+                waste_s*(1-percent_amenable))) # waste for remaining 28 day prescriptions
 
 
 #Patient Cost
-cost_public = 1 # cost of public time per minute
-time_collect = 10 # time to collect prescription (minutes) (0-60)
+cost_public = 11 # cost of public time per hour
+time_collect = 10 # time to collect prescription (min) 
 
 def calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect):
-    return (cost_public*((1-percent_amenable)+(percent_amenable/months_supply))*(time_collect*prescriptions/60))
+    return prescriptions*( # no of items
+           cost_public*time_collect/60)*(  # cost multiplier
+           (1-percent_amenable)+(percent_amenable/months_supply)) # adjusted number of items
+           
 
-    
-dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable)    
-staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
-waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
-patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
+
 # -
 
 
-# ## Extract prescribing data
+# # Apply Model
+
+# +
+percent_amenable = 0.9   
+
+model_input = [1,2,3] # current status vs switch to 2 or 3 months
+
+model_output = pd.DataFrame(index=["dispensing","staff","waste","patient"], columns=[1,2,3])
+
+
+for months_supply in model_input: 
+    
+    dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable, dispensing)    
+    staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
+    waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
+    patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
+
+    model_output[months_supply] = [dispensing_fees/1E6, staff_cost/1E6, waste/1E6, patient_cost/1E6]
+    
+    
+    display_text =f"Estimated cost for 28-day prescriptions with {percent_amenable*100}% switched to **{months_supply} month** supplies: "
+    if months_supply==1:
+        display_text = "Current estimated cost for 28-day prescriptions: "
+    display(Markdown(f"{display_text} **£{(dispensing_fees + staff_cost + waste + patient_cost) /1E6:.1f} M** ")
+           )
+
+# calculate total and savings    
+model_output = model_output.transpose()
+model_output["total"] = model_output.sum(axis=1)
+model_output["saving"] = model_output["total"][1] - model_output["total"]
+
+model_output.round(1).to_csv(os.path.join('..','data','cost_model_summary.csv'))
+display(model_output.round(1))
+# -
+
+# ## Extract prescribing data at CCG level
 
 # +
 ### extract 28-day prescribing data for modelling
@@ -3061,9 +3113,11 @@ GROUP BY pct
 
 df_ltc = bq.cached_read(sql, csv_path=os.path.join("..", "data", "ltc_qty_cost.csv"))
 
-df_ltc.head(10)
+df_ltc.head()
 
 # +
+# calculate cost per item
+
 data = df_ltc.set_index("pct").sort_index()
 # add a total row
 data = data.append(data.sum().rename("All")).reset_index()
@@ -3110,7 +3164,7 @@ prop_erd_slider = widgets.FloatSlider(min=0, max=1, step=0.1, description='e-RD 
 #priceperitem_slider = widgets.FloatSlider(min=0.5, max=2, step=0.1, description='Price per item (£):', style=style, value=0.8)
 
 # cost of public time per minute
-cost_public_slider = widgets.IntSlider(min=5, max=15, step=1, description='Cost of public time (£):', style=style, value=11)
+cost_public_slider = widgets.IntSlider(min=5, max=15, step=1, description='Cost of public time per hour (£):', style=style, value=11)
 
 # time to collect prescription (minutes)
 time_collect_slider = widgets.IntSlider(min=0, max=30, step=1, description='Time to collect (min):', style=style, value=10)
@@ -3135,7 +3189,7 @@ def f(ccg_selector, months_supply_slider, percent_amenable_slider, prop_doc_slid
     priceperitem = data.loc[data["pct"]==ccg, "cost_per_item"].item()
 
     
-    dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable)    
+    dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable, dispensing)    
     staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
     waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
     patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
@@ -3169,13 +3223,21 @@ widgets.HBox([widgets.VBox([months_supply_slider, percent_amenable_slider, prop_
 
 # +
 # Display static output
-f("All", 3, 0.9, 0.5, 0.5, 0.5, 11, 10)
+f(ccg_selector="All", 
+  months_supply_slider = 3, 
+  percent_amenable_slider = 0.9, 
+  prop_doc_slider = 0.5, 
+  time_slider=0.5, 
+  prop_erd_slider=0.5, 
+  cost_public_slider=11, 
+  time_collect_slider=10)
 # -
 
 
 # ## Apply model to larger basket of drugs
 # **Note larger basket includes 2/3-per-day drugs so we will infer the proportion 28-day from the smaller basket, per CCG.**
 
+# +
 larger_basket = pd.read_csv(os.path.join('..','data','data_cost_model.csv'))
 larger_basket.head() 
 
