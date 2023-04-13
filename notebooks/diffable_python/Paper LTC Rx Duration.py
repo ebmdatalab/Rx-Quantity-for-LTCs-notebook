@@ -34,6 +34,8 @@ from ebmdatalab import bq, maps, charts
 import matplotlib.pyplot as plt
 import os
 
+figures_path = os.path.join('..','figures/')
+
 
 # +
 ### here we extract data for modelling on a basket based on seven days measure
@@ -105,7 +107,7 @@ fig = px.bar(dfp, x='quantity_per_item', y='items',
 #fig.update_xaxes(range=[0, 120])
 fig.update_xaxes(type='category')
 
-plt.savefig("histogram_items_top10.png", format="png")
+fig.write_image(figures_path+"histogram_items_top10.png", format="png", scale=2)
 fig.show()
 # -
 
@@ -125,7 +127,8 @@ total = table1["total_quantity"].sum()
 table1["proportion_of_qty"] = (table1["total_quantity"]/total).round(3)*100
 display(table1)      
 
-table1["proportion_of_qty"] = (table1["total_quantity"]/total).round(3)*100
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    table1.to_csv(os.path.join('..','data','table1_qpi_summary.csv'))
 
 # -
 
@@ -152,7 +155,7 @@ fig.update_xaxes(type='category')
 fig.update_layout(
     title=f"Number of Tabets/Capsules for Commonly Prescribed Quantities") # for Commonly Prescribed Medicines")
 
-plt.savefig("histogram_quantity.png", format="png")
+fig.write_image(figures_path+"histogram_quantity.png", format="png", scale=2)
 fig.show()
 
 # get value for percentage dispensed in each of 1/2/3 months prescriptions: 
@@ -173,7 +176,7 @@ fig = px.bar(dfp, x='quantity_per_item', y='items',text='items_labels',
 fig.update_xaxes(type='category')
 fig.update_layout(
     title="Number of Items for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
-plt.savefig("histogram_items_28_56_84.png", format="png")
+fig.write_image(figures_path+"histogram_items_28_56_84.png", format="png", scale=2)
 fig.show()
 
 items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/1E6
@@ -269,10 +272,25 @@ ccg_map["proportion_of_basket"] = ccg_map["total_quantity"]/ccg_map["basket_qty"
 ccg_map.head()
 
 
+# +
+ccg_28 = ccg_map.loc[ccg_map["quantity_per_item"]==28]
+
+fig = px.scatter(ccg_28, x='basket_qty', y='proportion_of_basket',
+             width=800, height=500)
+fig.update_layout(
+    title="Proportion prescribed as 28-day repeats vs Total Prescribed Quantities per CCG")
+fig.write_image(figures_path+"ccg_scatter.png", format="png", scale=2)
+fig.show()
+
+# Summarise proportion prescribed in 28 / 56 / 84 days across CCGs
+ccg_summary = ccg_map.copy()[['pct','quantity_per_item','proportion_of_basket']].set_index(['pct','quantity_per_item'])
+ccg_summary = ccg_summary.unstack().describe().round(1)
+ccg_summary.to_csv(os.path.join('..','data','ccg_summary.csv'))
+display(ccg_summary)
 # -
 
 for quantity_per_item in ccg_map.quantity_per_item.unique():
-    plt.figure(figsize=(20, 7))
+    plt.figure(figsize=(9, 9))
     maps.ccg_map(
         ccg_map[ccg_map['quantity_per_item'] == quantity_per_item], 
         title= (f"Proportion of Tabets/Capsules supplied on {quantity_per_item}-day \n prescriptions for small basket of Commonly Prescribed Medicines"),
@@ -281,7 +299,7 @@ for quantity_per_item in ccg_map.quantity_per_item.unique():
         plot_options={'vmax': 100}
     )
     
-    plt.savefig("ccg_maps.png", format="png")
+    plt.savefig(figures_path+f"ccg_map_{quantity_per_item}.png", format="png", dpi=300)
     plt.show()
 
 # My impression is that the 28 day supply map looks similar to SystmOne v EMIS Web [map of deployment](https://github.com/ebmdatalab/jupyter-notebooks/blob/master/General%20Practice%20EHR%20Deployment/EHR%20Deployment.ipynb)
