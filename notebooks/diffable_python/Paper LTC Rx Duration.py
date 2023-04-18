@@ -215,20 +215,24 @@ total_tabs_caps DESC
 
 df_ltc_raw = bq.cached_read(sql2, csv_path=os.path.join('..','data','df_ltc_raw .csv'))
 df_ltc_raw .head(10)
-# -
 
+# +
 df_ltc_for_filter = df_ltc_raw.groupby(["chemical", "chemical_code"])["total_items","total_tabs_caps"].sum().reset_index().sort_values("total_tabs_caps", ascending=False)
-df_ltc_for_filter.head()
+display(df_ltc_for_filter.head())
+
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
+# -
 
 if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
     df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
 
 # (shortlist exported for manual filtering)
 
-df_filtered = pd.read_csv(os.path.join('..','data','filtered.csv'))
-df_filtered.head()
-
 # +
+df_filtered = pd.read_csv(os.path.join('..','data','filtered.csv'))
+display(df_filtered.head())
+
 count1 = df_filtered.chemical.nunique()
 count2 = df_filtered.loc[(df_filtered["ltc_stablish"] == 1.0)].chemical.nunique()
 
