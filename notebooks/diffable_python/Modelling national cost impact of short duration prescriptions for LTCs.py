@@ -2889,8 +2889,8 @@ from ipywidgets import Layout
 # ## Load summary prescribing data
 
 df = pd.read_csv(os.path.join('..','data','table1_qpi_summary.csv'))
-items = df.set_index('quantity_per_item')['items']
-display(items)
+prescribing_data = df.set_index('quantity_per_item')['items']
+display(prescribing_data)
 
 # # Calculations - formation of model
 
@@ -2902,7 +2902,7 @@ display(items)
 # +
 dispensing = 1.26
 
-dispensing_28 = dispensing*items[28]
+dispensing_28 = dispensing*prescribing_data[28]
 
 display(Markdown(f"Current total dispensing cost for all 28-day supplies: **£{dispensing_28/1E6:.1f} M**"))
 
@@ -2924,14 +2924,14 @@ cnur = 0.62 # cost per minute for nurse time
 prop_doc = 0.5 # proportion approved by a GP
 prop_nur = 1-prop_doc # proportion approved by a nurse
 
-t = 0.5 # time taken to approve a repeat prescription (minutes)
+t_approve = 0.5 # time taken to approve a repeat prescription (minutes)
 prop_erd = 0.5 # proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
 
-cpp_doc = cdoc*t*(1-prop_erd) # cost per average prescription (doc)
-cpp_nur = cnur*t*(1-prop_erd) # cost per average prescription (nur)
+cpp_doc = cdoc*t_approve*(1-prop_erd) # cost per average prescription (doc)
+cpp_nur = cnur*t_approve*(1-prop_erd) # cost per average prescription (nur)
 
 approval = (prop_doc*cpp_doc) + (prop_nur*cpp_nur)
-approval_28 = items[28]*approval # cost to approve all 28-day prescriptions
+approval_28 = prescribing_data[28]*approval # cost to approve all 28-day prescriptions
 
 display(Markdown(f"Current total estimated approval cost for all 28-day supplies: **£{approval_28/1E6:.1f} M**"),
        Markdown(f"Potential reduction in cost if 90% were 84-days: **£{(0.9*approval_28/3)/1E6:.1f} M** ({100*(0.9*approval_28/3)/approval_28:.1f}% of total 28-day approval fees)"
@@ -2946,9 +2946,9 @@ waste_l = 0.03663 # 3.663% of longer duration  (\>=60 days) prescriptions.
 # [Doble et al 2017]
 
 display(Markdown("#### Example: Atorvastatin (For price estimate, 20mg tabs averaged around 80p per 28-tablet pack in 2018-19)"))
-p = 0.8
-print ("£%8.5f"%(p*waste_s), " (3.325%) wasted per 28-day supply")
-print ("£%8.5f"%(3*p*waste_l), " (3.663%) wasted per 84-day supply")
+priceperitem = 0.8
+print ("£%8.5f"%(priceperitem*waste_s), " (3.325%) wasted per 28-day supply")
+print ("£%8.5f"%(3*priceperitem*waste_l), " (3.663%) wasted per 84-day supply")
 
 # -
 
@@ -2957,68 +2957,72 @@ print ("£%8.5f"%(3*p*waste_l), " (3.663%) wasted per 84-day supply")
 # +
 ### extract 28-day prescribing data for modelling
 
+
 sql = '''
-SELECT
-  pct,
-  SUM(IF(quantity_per_item=28,items,0)) AS items_28d,
-  SUM(items) AS total_items,
-  SUM(IF(quantity_per_item=28,net_cost,0)) AS net_cost_28d
+    SELECT
+      pct,
+      SUM(IF(quantity_per_item=28,items,0)) AS items_28d,
+      SUM(items) AS total_items,
+      SUM(IF(quantity_per_item=28,net_cost,0)) AS net_cost_28d
 
-FROM
- ebmdatalab.hscic.raw_prescribing_normalised AS presc
-INNER JOIN  hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
+    FROM
+     ebmdatalab.hscic.raw_prescribing_normalised AS presc
+    INNER JOIN  hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
 
-WHERE
-quantity_per_item IN (28,56,84)
-AND month BETWEEN '2018-08-01' AND '2019-07-01'
-AND 
-(bnf_code LIKE "0205051R0%" OR  ##ramipril
-bnf_code LIKE "0212000B0%" OR ##atrovastatin
-bnf_code LIKE "0212000Y0%" OR ##simvastatin
-bnf_code LIKE "0602010V0%" OR ##levothyroxine
-bnf_code LIKE "0206020A0%") ##amlodipine
-AND
-(bnf_name LIKE '%_Tab%' or bnf_name LIKE '%_Cap%') ##this restricts to tablets or capsules
+    WHERE
+    quantity_per_item IN (28,56,84)
+    AND month BETWEEN '2018-08-01' AND '2019-07-01'
+    AND 
+    (bnf_code LIKE "0205051R0%" OR  ##ramipril
+    bnf_code LIKE "0212000B0%" OR ##atrovastatin
+    bnf_code LIKE "0212000Y0%" OR ##simvastatin
+    bnf_code LIKE "0602010V0%" OR ##levothyroxine
+    bnf_code LIKE "0206020A0%") ##amlodipine
+    AND
+    (bnf_name LIKE '%_Tab%' or bnf_name LIKE '%_Cap%') ##this restricts to tablets or capsules
 
-GROUP BY pct
-    '''
+    GROUP BY pct
+        '''
 
 df_ltc = bq.cached_read(sql, csv_path=os.path.join("..", "data", "ltc_qty_cost.csv"))
 
-# calculate cost per item
+def calc_cost_per_item(df):
+    # calculate cost per item per ccg and overall
 
-data = df_ltc.set_index("pct").sort_index()
-# add a total row
-data = data.append(data.sum().rename("All")).reset_index()
+    data = df.set_index("pct").sort_index()
+    # add a total row
+    data = data.append(data.sum().rename("All")).reset_index()
 
-# calculate additional fields
-data["percent_28d"] = 100*data['items_28d']/data['total_items']
-data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
+    # calculate additional fields
+    data["percent_28d"] = 100*data['items_28d']/data['total_items']
+    data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
 
+    priceperitem = data.loc[data["pct"]=="All", "cost_per_item"].item()
+    display(Markdown(f"Latest mean price-per-item: **£{round(priceperitem,4)}**"))
+    return priceperitem, data
 
-priceperitem = data.loc[data["pct"]=="All", "cost_per_item"].item()
-display(Markdown(f"Latest mean price-per-item: **£{rount(priceperitem,4)}**"))
+priceperitem, df_ltc = calc_cost_per_item(df_ltc)
 
 # +
 # Scale up to all of our 5 medicines...
 display(Markdown("#### Scaling up estimated wastage using £1.04 per item"))
 
-waste_28 = p*items[28]*waste_s
+waste_28 = priceperitem*prescribing_data[28]*waste_s
 
 print ("£{:,.2f}".format(waste_28/1E6), "M (3.325%) estimated current wastage of all 28-day supplies")
-print ("£{:,.2f}".format((priceperitem*waste_l*items[28]*3*0.9)/1E6 + (priceperitem*waste_s*items[28]*0.1)/1E6), "M wasted if 90% of all 28-day supplies were 84-day")
+print ("£{:,.2f}".format((priceperitem*waste_l*prescribing_data[28]*3*0.9)/1E6 + (waste_28*0.1)/1E6), "M wasted if 90% of all 28-day supplies were 84-day")
 # -
 
 # ## 4. Patient time and expenses
 
 # +
 # Conservatively assume 10 mins per prescription (a low estimate to account for most people going to the pharmacy while nearby)
-t = 10/60 # hours per prescription
-print ("{:,.1f}".format((t*12)), " estimated hours per patient per year on 28-day supplies")
-print ("{:,.1f}".format((t*12/3)), " estimated hours per patient per year on 84-day supplies")
+time_collect = 10/60 # hours per prescription
+print ("{:,.1f}".format((time_collect*12)), " estimated hours per patient per year on 28-day supplies")
+print ("{:,.1f}".format((time_collect*12/3)), " estimated hours per patient per year on 84-day supplies")
 
 cost_public = 11 # cost of public time per hour
-total_time_28 = t*items[28]
+total_time_28 = time_collect*prescribing_data[28]
 total_time_switch = ((0.1)+(0.9/3))*total_time_28
 display(Markdown (f"{total_time_28/1E6:,.0f} M estimated total patient hours to collect all 28-day supplies (**£{cost_public*total_time_28/1E6:.1f}M** at £{cost_public}/h)"),
         Markdown (f"{total_time_switch/1E6:,.0f} M total patient hours if 90% 28-day supplies were 84 days (**£{cost_public*total_time_switch/1E6:.1f}M** at £{cost_public}/h)"))
@@ -3040,46 +3044,118 @@ from model import cost_model
 # # Apply Model
 
 # +
+prescriptions=prescribing_data[28]
 percent_amenable = 0.9   
+time_collect = 10
 
-model_input = [1,2,3] # current status vs switch to 2 or 3 months
-
-model_output = pd.DataFrame(index=["dispensing","staff","waste","patient"], columns=[1,2,3])
+months_supply_list = [1,2,3] # current status vs switch to 2 or 3 months
 
 
-for months_supply in model_input: 
+
+def apply_model(months_supply_list, prescriptions, percent_amenable, dispensing, prop_doc, prop_erd, t_approve, priceperitem, cost_public, time_collect, save_output=True):
     
-    results = cost_model(prescriptions, months_supply, percent_amenable, dispensing, prop_doc, prop_erd, t, priceperitem, cost_public, time_collect)
+    model_output = pd.DataFrame(index=["dispensing","staff","waste","patient"], columns=[1,2,3])
     
-    model_output[months_supply] = results/1E6
-        
-    display_text =f"Estimated cost for 28-day prescriptions with {percent_amenable*100}% switched to **{months_supply} month** supplies: "
-    if months_supply==1:
-        display_text = "Current estimated cost for 28-day prescriptions: "
-    display(Markdown(f"{display_text} **£{(results.sum()) /1E6:.1f} M** ")
-           )
+    for months_supply in months_supply_list: 
 
-# calculate total and savings    
-model_output = model_output.transpose()
-model_output["total"] = model_output.sum(axis=1)
-model_output["saving"] = model_output["total"][1] - model_output["total"]
+        results = cost_model(prescriptions=prescriptions, 
+                             months_supply=months_supply, 
+                             percent_amenable=percent_amenable, 
+                             dispensing=dispensing, 
+                             prop_doc=prop_doc, 
+                             prop_erd=prop_erd, 
+                             t_approve=t_approve, 
+                             priceperitem=priceperitem, 
+                             cost_public=cost_public, 
+                             time_collect=time_collect)
+        model_output[months_supply] = results/1E6
 
-model_output.round(1).to_csv(os.path.join('..','data','cost_model_summary.csv'))
-display(model_output.round(1))
+        display_text =f"Estimated cost for 28-day prescriptions with {percent_amenable*100}% switched to **{months_supply} month** supplies: "
+        if months_supply==1:
+            display_text = "Current estimated cost for 28-day prescriptions: "
+        display(Markdown(f"{display_text} **£{(results.sum()) /1E6:.1f} M** ")
+               )
+
+    # calculate total and savings    
+    model_output = model_output.transpose()
+    model_output["total"] = model_output.sum(axis=1)
+    model_output["saving"] = model_output["total"][1] - model_output["total"]
+
+    if save_output == True:
+        model_output.round(1).to_csv(os.path.join('..','data','cost_model_summary.csv'))
+    display(model_output.round(1))
+    
+apply_model(months_supply_list, prescriptions, percent_amenable, dispensing, prop_doc, prop_erd, t_approve, priceperitem, cost_public, time_collect)
 # -
 
 # ## Apply model to larger basket of drugs
 # **Note larger basket includes 2/3-per-day drugs so we will infer the proportion 28-day from the smaller basket, per CCG.**
 
 # +
-larger_basket = pd.read_csv(os.path.join('..','data','data_cost_model.csv'))
+larger_basket = pd.read_csv(os.path.join('..','data','data_cost_model.csv'), index_col=0)
+
+# proportion 28d from small basket for each ccg:
+larger_basket = larger_basket.merge(df_ltc[["pct","percent_28d"]], on="pct")
+larger_basket["items_28d"] = larger_basket["percent_28d"]*larger_basket["total_items"]/100
+
 larger_basket.head() 
 
 
 # +
-lb = larger_basket.copy()
+# get average costs per item for larger basket
+chemicals = "'" + "','".join(larger_basket.chemical_code.unique()) +"'"
 
-# proportion 28d from small basket for each ccg:
-lb = lb.merge(data[["pct","percent_28d"]], on="pct")
+sql2=f'''
+SELECT
+SUBSTR(presc.bnf_code,0,9) as chemical_code,
+SUM(IF(quantity_per_item=28,items,0)) AS items_28d,
+SUM(IF(quantity_per_item=28,net_cost,0)) AS net_cost_28d
 
-lb.head()
+FROM
+  ebmdatalab.hscic.raw_prescribing_normalised AS presc
+-- use a view which has form_route field from dmd for each bnf_code to filter by form
+INNER JOIN  measures_v2.dmd_objs_with_form_route as form ON presc.bnf_code=form.bnf_code
+AND form_route like '%oral' and (form_route like 'tab%' or form_route like 'cap%')
+
+WHERE
+SUBSTR(presc.bnf_code,0,9) IN ({chemicals}) 
+AND (month BETWEEN '2018-09-01' AND '2019-08-01')
+    
+GROUP BY
+chemical_code
+ORDER BY
+chemical_code
+'''
+
+df_lb_costs = bq.cached_read(sql2, csv_path=os.path.join('..','data','df_lb_costs.csv'))
+df_lb_costs.head()
+
+# +
+# summarise cost per item across larger basket
+
+df_lb_costs_2 = df_lb_costs.copy()
+df_lb_costs_2["cost_per_item"] = df_lb_costs_2['net_cost_28d']/df_lb_costs_2['items_28d']
+# note cost_per_item is for a 28-day supply
+display(df_lb_costs_2[["cost_per_item"]].describe())
+
+# -
+
+# ### Because costs per item vary more widely in this larger basket we will model the costs for each chemical individually
+
+# +
+# add cost per item onto data
+lb = larger_basket.merge(df_lb_costs_2[["chemical_code","cost_per_item"]], on="chemical_code")
+
+# list chemicals in descending order of total 28-day prescriptions
+chem_list = lb.groupby("chemical")["items_28d"].sum().sort_values(ascending=False)
+
+for c in chem_list.index:
+    data = lb.loc[lb["chemical"]==c]
+    prescriptions = data.items_28d.sum()
+    priceperitem = data.cost_per_item.mean()
+    display (Markdown(f"## {c}"),
+             Markdown(f"### Prescriptions: {round(prescriptions/1E6,1)} M, mean price per item: £{round(priceperitem,2)}"))
+    apply_model(months_supply_list, prescriptions, percent_amenable, dispensing, prop_doc, prop_erd, t_approve, priceperitem, cost_public, time_collect, save_output=False)
+# -
+
+
