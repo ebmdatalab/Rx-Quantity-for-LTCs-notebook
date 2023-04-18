@@ -18,15 +18,15 @@ def calculate_dispensing_fees(prescriptions, months_supply, percent_amenable, di
 
 ##### Staff Cost
 prop_doc = 0.5 # proportion approved by a GP
-t = 0.5 # time taken to approve a repeat prescription (minutes)
+t_approve = 0.5 # time taken to approve a repeat prescription (minutes)
 prop_erd = 0.5 # proportion of prescriptions on electronic repeat dispensing (assume zero cost - or one cost per 12 months?)
 
 def calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t):
     cdoc = 2.2 # cost per minute for GP time
     cnur = 0.62 # cost per minute for nurse time
     prop_nur = 1-prop_doc # proportion approved by a nurse
-    cpp_doc = cdoc*t*(1-prop_erd) # cost per average prescription (doc)
-    cpp_nur = cnur*t*(1-prop_erd) # cost per average prescription (nur)
+    cpp_doc = cdoc*t_approve*(1-prop_erd) # cost per average prescription (doc)
+    cpp_nur = cnur*t_approve*(1-prop_erd) # cost per average prescription (nur)
     
     return prescriptions*( # no of items
            prop_doc*cpp_doc + prop_nur*cpp_nur)*( # cost multiplier
@@ -56,9 +56,9 @@ def calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_
            (1-percent_amenable)+(percent_amenable/months_supply)) # adjusted number of items
            
 
-def cost_model(prescriptions, months_supply, percent_amenable, dispensing, prop_doc, prop_erd, t, priceperitem, cost_public, time_collect):
+def cost_model(prescriptions, months_supply, percent_amenable, dispensing, prop_doc, prop_erd, t_approve, priceperitem, cost_public, time_collect):
     dispensing_fees = calculate_dispensing_fees(prescriptions, months_supply, percent_amenable, dispensing)    
-    staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t)
+    staff_cost = calculate_staff_cost(prescriptions, months_supply, percent_amenable, prop_doc, prop_erd, t_approve)
     waste = calculate_waste(prescriptions, months_supply, percent_amenable, priceperitem)
     patient_cost = calculate_patient_cost(prescriptions, months_supply, percent_amenable, cost_public, time_collect)
     
