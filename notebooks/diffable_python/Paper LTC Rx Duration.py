@@ -26,7 +26,7 @@
 # I have had a quick skim of the systematic review (based exclusively on American data) and the CPRD study. The policy briefing states that _current guidance to issue 28-day repeat prescriptions_. This deviates from the DataLab assertion in the seven days measure that there is no consensus. Martin, Payne and Wilson study is is based on old guidance from a handful of areas. This notebook seeks to ascertain what the variation is in 28 v 56 v 84 across the country for our basket of medicines commonly prescribed once daily for long term conditions on the complete prescribing dataset for England.
 
 # +
-##importing libraries that are need to support analysis
+##importing libraries that are needed to support analysis
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -34,9 +34,11 @@ from ebmdatalab import bq, maps, charts
 import matplotlib.pyplot as plt
 import os
 
+figures_path = os.path.join('..','figures/')
+
 
 # +
-### here we extract data for modelling
+### here we extract data for modelling on a basket based on seven days measure
 sql = '''
 SELECT
   pct,
@@ -48,14 +50,14 @@ INNER JOIN hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
 
 WHERE
 (bnf_code LIKE "0205051R0%" OR  ##ramipril
-bnf_code LIKE "0212000B0%" OR ##atrovastatin
+bnf_code LIKE "0212000B0%" OR ##atorvastatin
 bnf_code LIKE "0212000Y0%" OR ##simvastatin
 bnf_code LIKE "0602010V0%" OR ##levothyroxine
 bnf_code LIKE "0206020A0%") ##amlodipine
 AND
 (bnf_name LIKE '%_Tab%' or bnf_name LIKE '%_Cap%') ##this restricts to tablets or capsules
-AND (month BETWEEN '2018-08-01'
-    AND '2019-07-01')
+AND (month BETWEEN '2018-12-01'
+    AND '2019-11-01')
 
 GROUP BY
   pct,
@@ -63,51 +65,97 @@ GROUP BY
     '''
 
 df_ltc = bq.cached_read(sql, csv_path=os.path.join('..','data','ltc_qty.csv'))
-df_ltc.head(10)
+df_ltc.head()
 # -
 
-df_ltc.info()
-
+# calculate total quantity for each QpI
 df_rx_repeat = df_ltc.copy()
 df_rx_repeat["total_quantity"] = df_rx_repeat["quantity_per_item"]*df_rx_repeat["items"] 
 df_rx_repeat.tail(5)
+
+# ### Data summary
+
+# +
+total_items = df_ltc["items"].sum()
+display(f"Total prescriptions (including all durations): {total_items/1E6} million")
+
+# number of CCGs
+ccg_count = df_ltc["pct"].nunique()
+display(f"Total CCGs: {ccg_count}")
+# -
 
 df_rx_repeat.describe()
 
 # There is a maximum of 8400 on a single...... That is 23 years worth of tablets, lets investigate further below.
 
+# ### List of most common prescription durations
+
+# inspect most common quantity_per_item values
+top10qpi = df_rx_repeat.groupby('quantity_per_item')['items'].sum().sort_values(ascending=False).head(10).reset_index()
+display(top10qpi)
+
+# ### Histogram of most common prescription durations
+
 # +
+# NBVAL_IGNORE_OUTPUT
+dfp = top10qpi.sort_values(by='quantity_per_item')
+dfp['labels'] = (dfp["items"]/1000000).round(1).astype(str)+"M"
 
-dfp = df_rx_repeat.copy()
-dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
+fig = px.bar(dfp, x='quantity_per_item', y='items', 
+             text='labels',
+             width=800, height=500)
+#fig.update_xaxes(range=[0, 120])
+fig.update_xaxes(type='category')
 
-fig = px.bar(dfp, x='quantity_per_item', y='items')
-fig.update_xaxes(range=[0, 120])
-
-
+fig.write_image(figures_path+"histogram_items_top10.png", format="png", scale=2)
 fig.show()
 # -
 
-###here we make a list of durations we want to affect for later filtering
-lst = [7,28,56,84]
+# ### Table displaying quantity and items for 1/2/3-month prescriptions only
+
+### here we make a list of durations of interest for filtering
+lst = [28,56,84]
 
 # +
 df_common = df_rx_repeat.loc[(df_rx_repeat["quantity_per_item"].isin(lst))]
 
-print(df_common)                                                             
+total_items = df_common["items"].sum()
+display(f"Total prescriptions after limiting to 28, 56 and 84-day durations: {total_items/1E6} million")
+
+table1 = df_common.copy().groupby('quantity_per_item').sum().reset_index()
+total = table1["total_quantity"].sum()
+table1["proportion_of_qty"] = (table1["total_quantity"]/total).round(3)*100
+display(table1)      
+
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    table1.to_csv(os.path.join('..','data','table1_qpi_summary.csv'))
+
 # -
 
-total = df_common["total_quantity"].sum()
-df_common["proportion_of_qty"] = df_common["total_quantity"]/total*100
-df_common
+# ### Calculate proportions dispensed in each quantity
+
+total_qty = df_common["total_quantity"].sum()
+display(f"Total tablets/capsules after limiting to 28, 56 and 84-day durations: {total_qty/1E9} billion")
+df_common["proportion_of_qty"] = df_common["total_quantity"]/total_qty*100
+df_common.head(5)
+
+# The Bristol paper assertion that most prescribing is 28 days (just about) is correct based on our basket of common LTC medicines. They recommend three-month presctiptions as being more cost effective. Now let's look at script volume to see what the workload implications might be for our basket of common medicines.
+
+# ### Histogram displaying number of tablets/capsules for 1/2/3-month prescriptions only
 
 # +
+# NBVAL_IGNORE_OUTPUT
 dfp = df_common.copy()
 dfp = dfp.groupby(["quantity_per_item"]).sum().reset_index()
+dfp['labels'] = (dfp["total_quantity"]/1E9).round(1).astype(str)+" B"
 
-fig = px.bar(dfp, x='quantity_per_item', y='total_quantity')
+fig = px.bar(dfp, x='quantity_per_item', y='total_quantity',text='labels',
+             width=800, height=500)
+fig.update_xaxes(type='category')
 fig.update_layout(
-    title="Number of Tabets/Capsules for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
+    title=f"Number of Tabets/Capsules for Commonly Prescribed Quantities") # for Commonly Prescribed Medicines")
+
+fig.write_image(figures_path+"histogram_quantity.png", format="png", scale=2)
 fig.show()
 
 # get value for percentage dispensed in each of 1/2/3 months prescriptions: 
@@ -119,21 +167,94 @@ print(f"Tablets/capsules for common LTC medicines are most commonly being dispen
       f"with approximately {percentage[56]:.1f}% being dispensed on two-monthly scripts.",
       f"Only {percentage[84]:.1f}% of these common medicines are being supplied on three-monthly prescriptions." )
 
-# -
-
-# The Bristol paper assertion that most prescribing is 28 days is correct based on our basket of common LTC medicines. They recommend three-month presctiptions as being more cost effective. Now let's look at script volume to see what the workload implications might be for our basket of common medicines.
 
 # +
-fig = px.bar(dfp, x='quantity_per_item', y='items')
+# NBVAL_IGNORE_OUTPUT
+dfp['items_labels'] = (dfp["items"]/1000000).round(1).astype(str)+"M"
+fig = px.bar(dfp, x='quantity_per_item', y='items',text='items_labels',
+             width=800, height=500)
+fig.update_xaxes(type='category')
 fig.update_layout(
     title="Number of Items for Commonly Prescribed Quantities for Commonly Prescribed Medicines")
+fig.write_image(figures_path+"histogram_items_28_56_84.png", format="png", scale=2)
 fig.show()
 
 items_28d = dfp.loc[dfp["quantity_per_item"]==28,'items'].item()/1E6
 print(f'There are {items_28d:,.1f}M one-month scripts for our basket of common medicines. There will be a substantial number of prescriptions that need amending.')
 # -
 
+# ## Extrapolate to 2/3 times daily medicines
+
+# This basket is based on once daily medicines - however now we know the proportions we can include twice/thrice daily medicines for medicines that are for long-term conditions which relatively stable dosing patterns. The twice/thrice is quantity repeat should be standardised around the same amount. To do this let us review the top 50 medicines dispensed last year based on tab/caps volume. 
+
+# +
+sql2='''
+SELECT
+pct,
+bnf.chemical,
+bnf.chemical_code,
+SUM(items) AS total_items,
+SUM(total_quantity) AS total_tabs_caps
+FROM
+  ebmdatalab.hscic.raw_prescribing_normalised AS presc
+INNER JOIN
+  hscic.bnf as bnf
+ON
+  presc.bnf_code=bnf.presentation_code
+WHERE
+(presentation LIKE '%_Tab%' or presentation LIKE '%_Cap%')
+    AND SUBSTR(bnf_code,0,2) IN ('01','02','04','06') ## here we use common BNF chapters. Chapter 3 resp is excluded due to amount of inhalers. ch5 is antibiotics
+AND (month BETWEEN '2018-12-01'
+    AND '2019-11-01')
+    
+GROUP BY
+pct, bnf.chemical, bnf.chemical_code
+ORDER BY
+total_tabs_caps DESC
+'''
+
+df_ltc_raw = bq.cached_read(sql2, csv_path=os.path.join('..','data','df_ltc_raw .csv'))
+df_ltc_raw .head(10)
+
+# +
+df_ltc_for_filter = df_ltc_raw.groupby(["chemical", "chemical_code"])["total_items","total_tabs_caps"].sum().reset_index().sort_values("total_tabs_caps", ascending=False)
+display(df_ltc_for_filter.head())
+
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
+# -
+
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    df_ltc_for_filter.to_csv(os.path.join('..','data','df_ltc_for_filter.csv'))
+
+# (shortlist exported for manual filtering)
+
+# +
+df_filtered = pd.read_csv(os.path.join('..','data','filtered.csv'))
+display(df_filtered.head())
+
+count1 = df_filtered.chemical.nunique()
+count2 = df_filtered.loc[(df_filtered["ltc_stablish"] == 1.0)].chemical.nunique()
+
+print (f"Out of {count1} chemicals, "
+       f"we have selected {count2} "
+       "for our basket")
+# -
+
+# ## Data for Cost Modelling
+# **Note: to use this for cost modelling will also need to include the net_cost field in SQL query.**
+
+data_cost_prep = df_ltc_raw.merge(df_filtered[['chemical_code', 'ltc_stablish']], how="outer", on="chemical_code")
+data_cost_prep.head(2)
+
+data_cost_model = data_cost_prep.loc[(data_cost_prep["ltc_stablish"] == 1.0)]
+if "GITHUB_WORKSPACE" not in os.environ:  ## this prevents a csv error during tests
+    data_cost_model.to_csv(os.path.join('..','data','data_cost_model.csv'))
+data_cost_model.head(2)
+
 # ## CCG Variation
+
+# CCG variation and maps based on small basket
 
 df_ccg = df_ltc.groupby(['pct','quantity_per_item'])['items'].sum().reset_index()
 df_ccg["total_quantity"] = df_ccg["quantity_per_item"]*df_ccg["items"] 
@@ -155,72 +276,34 @@ ccg_map["proportion_of_basket"] = ccg_map["total_quantity"]/ccg_map["basket_qty"
 ccg_map.head()
 
 
+# +
+ccg_28 = ccg_map.loc[ccg_map["quantity_per_item"]==28]
+
+fig = px.scatter(ccg_28, x='basket_qty', y='proportion_of_basket',
+             width=800, height=500)
+fig.update_layout(
+    title="Proportion prescribed as 28-day repeats vs Total Prescribed Quantities per CCG")
+fig.write_image(figures_path+"ccg_scatter.png", format="png", scale=2)
+fig.show()
+
+# Summarise proportion prescribed in 28 / 56 / 84 days across CCGs
+ccg_summary = ccg_map.copy()[['pct','quantity_per_item','proportion_of_basket']].set_index(['pct','quantity_per_item'])
+ccg_summary = ccg_summary.unstack().describe().round(1)
+ccg_summary.to_csv(os.path.join('..','data','ccg_summary.csv'))
+display(ccg_summary)
 # -
 
 for quantity_per_item in ccg_map.quantity_per_item.unique():
-    plt.figure(figsize=(20, 7))
+    plt.figure(figsize=(9, 9))
     maps.ccg_map(
         ccg_map[ccg_map['quantity_per_item'] == quantity_per_item], 
-        title= (f"Proportion of Tabets/Capsules supplied on {quantity_per_item}-day \n prescriptions for Commonly Prescribed Medicines"),
+        title= (f"Proportion of Tabets/Capsules supplied on {quantity_per_item}-day \n prescriptions for small basket of Commonly Prescribed Medicines"),
         column='proportion_of_basket', 
         separate_london=False,
         plot_options={'vmax': 100}
     )
+    
+    plt.savefig(figures_path+f"ccg_map_{quantity_per_item}.png", format="png", dpi=300)
     plt.show()
 
 # My impression is that the 28 day supply map looks similar to SystmOne v EMIS Web [map of deployment](https://github.com/ebmdatalab/jupyter-notebooks/blob/master/General%20Practice%20EHR%20Deployment/EHR%20Deployment.ipynb)
-
-# ## Excessive quantities in CCGs
-
-# Above we saw that there are some excessive quantities being prescribed, one script for 8400 would equate to 23 years supply and it was prescribed in a single month. It is unlikely that it was dispensed but we will now interrogate the data to see what the true cost of excessive prescribing is. We cannot investigate further so we will create files for interested CCGs - perhaps we could do mass audit?
-
-# +
-### here we extract data for modelling
-sql = '''
-SELECT
-  month,
-  pct,
-  practice,
-  bnf_name,
-  items,
-  actual_cost,
-  quantity_per_item
-FROM
- ebmdatalab.hscic.raw_prescribing_normalised AS presc
-INNER JOIN hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
-
-WHERE
-(bnf_code LIKE "0205051R0%" OR  ##ramipril
-bnf_code LIKE "0212000B0%" OR ##atrovastatin
-bnf_code LIKE "0212000Y0%" OR ##simvastatin
-bnf_code LIKE "0602010V0%" OR ##levothyroxine
-bnf_code LIKE "0206020A0%") ##amlodipine
-AND
-(bnf_name LIKE '%_Tab%' or bnf_name LIKE '%_Cap%') ##this restricts to tablets or capsules
-AND (month >= '2018-08-01'
-    AND month <= '2019-07-01')
-AND
-quantity_per_item >= 336 ##this is one years supply
-    '''
-
-df_excess = bq.cached_read(sql, csv_path=os.path.join('..','data','ltc_qty_excess.csv'))
-df_excess.head(10)
-# -
-
-df_excess.describe()
-
-df_excess[["items","actual_cost"]].sum()
-
-# +
-# here we create csv files for each CCG to investigate further if they wish - these are now available on GitHub
-for i, g in df_excess.groupby('pct'):
-    if "GITHUB_WORKSPACE" not in os.environ:
-        g.to_csv(os.path.join('..','data','{}.csv').format(i.split('/')[0]), index=False)
-# -
-
-
-#  code review improvements - what I would like to tweak
-# - currently has 12 months to July 19, we should update with latest
-
-# + collapsed=true jupyter={"outputs_hidden": true}
-
