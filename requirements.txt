@@ -72,6 +72,7 @@ pluggy==0.13.1            # via pytest
 prometheus-client==0.7.1  # via notebook
 prompt-toolkit==3.0.3     # via ipython, jupyter-console
 protobuf==3.11.3          # via google-api-core, google-cloud-bigquery, googleapis-common-protos
+psutil==5.9.5             # via -r requirements.in
 ptyprocess==0.6.0         # via pexpect, terminado
 py==1.8.1                 # via pytest
 pyasn1-modules==0.2.8     # via google-auth
