@@ -1,11 +1,23 @@
-# Prescribing duration
+The University of Bristol have produced a policy briefing arguing that three month repeat prescriptions are more cost-effective. They base this on a systematic review and studies in CPRD. This repo will hold our data as we set out to describe current variation in prescription duration for long term conditions.
 
-This is a project investigating the duration of prescriptions for long-term conditions (LTCs).
+
+# Background EBM DataLab's skeleton notebook environment
 
 ![status](https://github.com/ebmdatalab/custom-docker/workflows/Notebook%20checks/badge.svg)
 
-This analysis used our template for reproducible, cross-platform
-analysis in a Jupyter notebook, using Docker. 
+## Getting started with this skeleton project
+
+This is a skeleton project for creating a reproducible, cross-platform
+analysis notebook, using Docker.  It also includes:
+
+* configuration for `jupytext`, to support easier code review
+* cross-platform startup scripts
+* best practice folder structure and documentation
+
+Developers and analysts using this skeleton for new development should
+refer to [`DEVELOPERS.md`](DEVELOPERS.md) for instructions on getting
+started.  Update this `README.md` so it is a suitable introduction to
+your project.
 
 ## How to view the notebooks
 
