@@ -2925,10 +2925,102 @@ print ("£%8.5f"%(p*0.03325), " (3.325%) wasted per 28-day supply")
 print ("£%8.5f"%(3*p*0.03663), " (3.663%) wasted per 84-day supply")
 # -
 
+<<<<<<< Updated upstream
 # Assuming this scales up to all of our 5 prescriptions...
 print ("£{:,.0f}".format(p*0.03325*16212361), " (3.325%) wasted of all 28-day supplies")
 print ("£{:,.0f}".format(p*0.03663*16212361*3), " (3.663%) wasted if all 28-day supplies were 84-day")
 print ("£{:,.0f}".format((p*0.03663*16212361*3*0.9) + (p*0.03325*16212361*0.1)), " wasted if 90% of all 28-day supplies were 84-day")
+=======
+# ### Extract prescribing data at CCG level with costs to calculate mean price-per-item
+
+# +
+### extract 28-day prescribing data for modelling
+
+
+sql = '''
+    SELECT
+      pct,
+      SUM(IF(quantity_per_item=28,items,0)) AS items_28d,
+      SUM(items) AS total_items,
+      SUM(IF(quantity_per_item=28,net_cost,0)) AS net_cost_28d
+
+    FROM
+     ebmdatalab.hscic.raw_prescribing_normalised AS presc
+    INNER JOIN  hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
+
+    WHERE
+    quantity_per_item IN (28,56,84)
+    AND month BETWEEN '2021-08-01' AND '2022-07-01'
+    AND 
+    (bnf_code LIKE "0205051R0%" OR  ##ramipril
+    bnf_code LIKE "0212000B0%" OR ##atrovastatin
+    bnf_code LIKE "0212000Y0%" OR ##simvastatin
+    bnf_code LIKE "0602010V0%" OR ##levothyroxine
+    bnf_code LIKE "0206020A0%") ##amlodipine
+    AND
+    (LOWER(bnf_name) LIKE '%_tab%' or LOWER(bnf_name) LIKE '%_cap%') ##this restricts to tablets or capsules
+
+    GROUP BY pct
+        '''
+exportfile = csv_path=os.path.join("..", "data", "ltc_qty_cost.csv")
+df_ltc = bq.cached_read(sql, csv_path=exportfile, use_cache=False)
+
+def calc_cost_per_item(df):
+    # calculate cost per item per ccg and overall
+
+    data = df.set_index("pct").sort_index()
+    # add a total row
+    data = data.append(data.sum().rename("All")).reset_index()
+
+    # calculate additional fields
+    data["percent_28d"] = 100*data['items_28d']/data['total_items']
+    data["cost_per_item"] = data['net_cost_28d']/data['items_28d']
+
+    priceperitem = data.loc[data["pct"]=="All", "cost_per_item"].item()
+    display(Markdown(f"Latest mean price-per-item: **£{round(priceperitem,4)}**"))
+    return priceperitem, data
+
+priceperitem, df_ltc = calc_cost_per_item(df_ltc)
+# -
+
+sql = '''
+    SELECT
+      pct,
+      SUM(IF(quantity_per_item=28,items,0)) AS items_28d,
+      SUM(items) AS total_items,
+      SUM(IF(quantity_per_item=28,net_cost,0)) AS net_cost_28d
+
+    FROM
+     ebmdatalab.hscic.raw_prescribing_normalised AS presc
+    INNER JOIN  hscic.ccgs AS ccgs ON presc.pct=ccgs.code AND ccgs.org_type='CCG'
+
+    WHERE
+    quantity_per_item IN (28,56,84)
+    AND month BETWEEN '2021-08-01' AND '2022-07-01'
+    AND 
+    (bnf_code LIKE "0205051R0%" OR  ##ramipril
+    bnf_code LIKE "0212000B0%" OR ##atrovastatin
+    bnf_code LIKE "0212000Y0%" OR ##simvastatin
+    bnf_code LIKE "0602010V0%" OR ##levothyroxine
+    bnf_code LIKE "0206020A0%") ##amlodipine
+    AND
+    (LOWER(bnf_name) LIKE '%_tab%' or LOWER(bnf_name) LIKE '%_cap%') ##this restricts to tablets or capsules
+
+    GROUP BY pct
+        '''
+exportfile = csv_path=os.path.join("..", "data", "ltc_qty_cost.csv")
+df_ltc = bq.cached_read(sql, csv_path=exportfile, use_cache=False)
+
+# +
+# Scale up to all of our 5 medicines...
+display(Markdown("#### Scaling up estimated wastage using £1.04 per item"))
+
+waste_28 = priceperitem*prescribing_data[28]*waste_s
+
+print ("£{:,.2f}".format(waste_28/1E6), "M (3.325%) estimated current wastage of all 28-day supplies")
+print ("£{:,.2f}".format((priceperitem*waste_l*prescribing_data[28]*3*0.9)/1E6 + (waste_28*0.1)/1E6), "M wasted if 90% of all 28-day supplies were 84-day")
+# -
+>>>>>>> Stashed changes
 
 # ## 4. Patient time and expenses
 
